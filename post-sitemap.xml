@@ -7,24 +7,16 @@
     </url>
 
     <url>
+        <loc>http://www.huweihuang.com/article/This-is-aint-new/</loc>
+        <lastmod>2022-04-03T10:23:50.453Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://www.huweihuang.com/article/post-name/</loc>
         <lastmod>2022-04-03T09:36:51.768Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.huweihuang.com/article/hexo-theme-huweihuang/</loc>
-        <lastmod>2021-03-18T11:55:45.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://www.huweihuang.com/article/hexo-theme-huweihuang_CN/</loc>
-        <lastmod>2021-03-18T11:55:45.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
