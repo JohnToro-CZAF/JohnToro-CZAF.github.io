@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="sitemap.xsl"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://www.huweihuang.com</loc>
+        <loc>www.johnphancazf.com</loc>
         <changefreq>daily</changefreq>
         <priority>1</priority>
     </url>
 
     <url>
-        <loc>http://www.huweihuang.com/article/This-is-aint-new/</loc>
+        <loc>www.johnphancazf.com/article/This-is-aint-new/</loc>
         <lastmod>2022-04-03T10:29:54.623Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -15,7 +15,7 @@
     </url>
 
     <url>
-        <loc>http://www.huweihuang.com/article/post-name/</loc>
+        <loc>www.johnphancazf.com/article/post-name/</loc>
         <lastmod>2022-04-03T09:36:51.768Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
