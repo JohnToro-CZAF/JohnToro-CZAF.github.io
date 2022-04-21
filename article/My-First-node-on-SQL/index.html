@@ -139,6 +139,13 @@
 
                         
                         <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
                             <a href="/archive/">Archives</a>
                         </li>
                         
@@ -147,13 +154,6 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
-                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -208,17 +208,19 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1 id="this-my-first-note-to-sql"><a href="#This-my-first-note-to-SQL" class="headerlink" title="This my first note to SQL"></a>This my first note to SQL</h1><h3 id="numeric-data"><a href="#Numeric-data" class="headerlink" title="Numeric data"></a>Numeric data</h3><p>There are actually several different numeric data types that reflect the various ways in which numbers are used</p>
+                <h1 id="this-my-first-note-to-sql">This my first note to SQL</h1>
+<h3 id="numeric-data">Numeric data</h3>
+<p>There are actually several different numeric data types that reflect the various ways in which numbers are used</p>
 <p><em>Bool value</em> : Boolean, would contain a <code>0</code> to indicate <code>false</code> and a <code>1</code> to indicate <code>true</code></p>
 <p><em>Primary key</em> : A system-generated key for transaction table. Would start at 1 and increase in increments of one.</p>
-<p><em>Integer value</em> </p>
+<p><em>Integer value</em></p>
 <p><em>Float</em> : High-precision scientific or manufacturing data ofen requires to eight decimal points</p>
 <p><img src="pic/dituc.png" alt></p>
 <p><code>Float(p,s)</code> or <code>Double(p,s)</code> using <code>p</code> digit precision on both left and right the decimal point, <code>s</code> indicating scale : the number of digits on the right the decimal point</p>
 <blockquote>
 <p>Remember that the system will generate error if you are trying to store for example 178.375 in your Float(4,2). Instead of truncating left digits - a mistake we dont want to make</p>
 </blockquote>
-<h3 id="temporal-data"><a href="#Temporal-Data" class="headerlink" title="Temporal Data"></a>Temporal Data</h3><div class="table-container">
+<h3 id="temporal-data">Temporal Data</h3>
 <table>
 <thead>
 <tr>
@@ -255,21 +257,101 @@
 </tr>
 </tbody>
 </table>
-</div>
 <p>The <code>Datetime</code>, <code>Timestamp</code> and <code>Time</code> types also allow fractional seconds of up to 6 decimals places</p>
 <p>For each situation we have to use different type when refer to time</p>
 <ul>
 <li>Columns to hold the expected future shipping date of a customer order and an emplyee’s birth rate would use the <code>date</code> type, since it is unnecessary to know at what time a person was born and unrealistic to schedule a future shpment down to the second</li>
 <li>A column to hold information about when a customer order was actually shpped would use the <code>datetime</code> type, since it is important to track not only the date that the shipment occurred but the time as weel</li>
-<li>A column that tracks when a user last modified a particular row in a table would use the <code>timestamp</code> type. The <code>timestamp</code> type holds the information as <code>datetime</code> type, but a <code>timestamp</code> column will automatically be populated with the current date/time by MySQL server when a row is added to a table or when a row is later modified </li>
+<li>A column that tracks when a user last modified a particular row in a table would use the <code>timestamp</code> type. The <code>timestamp</code> type holds the information as <code>datetime</code> type, but a <code>timestamp</code> column will automatically be populated with the current date/time by MySQL server when a row is added to a table or when a row is later modified</li>
 <li>Columns that hold data regarding the length of time needed to complete a task would use the <code>time</code> type. For this type of data, it would be unnecessary and confusing to store a date component</li>
 </ul>
-<h3 id="table-creation"><a href="#Table-creation" class="headerlink" title="Table creation"></a>Table creation</h3><p>An example data schemma will be using in MySQL server<br>| Column          | Type         | Example    |<br>| ———————- | —————— | ————— |<br>| Name            | Varchar(40)  |            |<br>| Eye_color       | Char(2)      | BL, BR, GR |<br>| Birth_date      | Date         |            |<br>| Address         | Varchar(100) |            |<br>| Favourite_foods | Varchar(200) |            |</p>
-<p>Normalize version needs add an id<br>| Column      | Type               | Example |<br>| —————- | ————————— | ———- |<br>| Person_id   | Smallint(unsigned) |         |<br>| Street      | Varchar(30)        |         |<br>| City        | Varchar(20)        |         |<br>| State       | Varchar(20)        |         |<br>| Country     | Varchar(20)        |         |<br>| Postal_code | Varchar(20)                   |         |<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">	person_id <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span>,</span><br><span class="line">	fname <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	lname <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	eye_color <span class="built_in">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">	birth_date <span class="built_in">DATE</span>,</span><br><span class="line">	street <span class="built_in">VARCHAR</span>(<span class="number">30</span>),</span><br><span class="line">	city <span class="built_in">VARCHAR</span>(<span class="number">30</span>),</span><br><span class="line">	state <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	country <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	postal_code <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	<span class="keyword">CONSTRAINT</span> pk_person PRIMARY <span class="keyword">KEY</span>(person_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h3 id="table-creation">Table creation</h3>
+<p>An example data schemma will be using in MySQL server</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Varchar(40)</td>
+<td></td>
+</tr>
+<tr>
+<td>Eye_color</td>
+<td>Char(2)</td>
+<td>BL, BR, GR</td>
+</tr>
+<tr>
+<td>Birth_date</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr>
+<td>Address</td>
+<td>Varchar(100)</td>
+<td></td>
+</tr>
+<tr>
+<td>Favourite_foods</td>
+<td>Varchar(200)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Normalize version needs add an id</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Person_id</td>
+<td>Smallint(unsigned)</td>
+<td></td>
+</tr>
+<tr>
+<td>Street</td>
+<td>Varchar(30)</td>
+<td></td>
+</tr>
+<tr>
+<td>City</td>
+<td>Varchar(20)</td>
+<td></td>
+</tr>
+<tr>
+<td>State</td>
+<td>Varchar(20)</td>
+<td></td>
+</tr>
+<tr>
+<td>Country</td>
+<td>Varchar(20)</td>
+<td></td>
+</tr>
+<tr>
+<td>Postal_code</td>
+<td>Varchar(20)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">	person_id <span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span>,</span><br><span class="line">	fname <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	lname <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	eye_color <span class="built_in">CHAR</span>(<span class="number">20</span>),</span><br><span class="line">	birth_date <span class="built_in">DATE</span>,</span><br><span class="line">	street <span class="built_in">VARCHAR</span>(<span class="number">30</span>),</span><br><span class="line">	city <span class="built_in">VARCHAR</span>(<span class="number">30</span>),</span><br><span class="line">	state <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	country <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	postal_code <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">	<span class="keyword">CONSTRAINT</span> pk_person PRIMARY <span class="keyword">KEY</span>(person_id)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eye_color CHAR(20) <span class="keyword">CHECK</span> (eye_color <span class="keyword">IN</span> (<span class="string">'BR'</span>, <span class="string">'BL'</span>, <span class="string">'GR'</span>))</span><br></pre></td></tr></table></figure>
 <p>Most of SQL server will enforce the above check when inserting new data point but MySQL does not. But we can write it different</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eye_color ENUM('BR','BL','GR')</span><br></pre></td></tr></table></figure>
-<p>Auto generate a default <code>PRIMARY KEY</code> by auto increment<br>We can add this by <code>ALTER</code> command and modify the column definition<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> person <span class="keyword">MODIFY</span> person_id</span><br><span class="line"><span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT;</span><br></pre></td></tr></table></figure></p>
+<p>Auto generate a default <code>PRIMARY KEY</code> by auto increment<br>
+We can add this by <code>ALTER</code> command and modify the column definition</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> person <span class="keyword">MODIFY</span> person_id</span><br><span class="line"><span class="built_in">SMALLINT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT;</span><br></pre></td></tr></table></figure>
 
                 
 
@@ -613,7 +695,8 @@
             all[i].SourceElement().parentNode.className += ' has-jax';
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='themes/huweihuang/source/js/math_jax.js' async></script>
 </body>
 
 </html>
