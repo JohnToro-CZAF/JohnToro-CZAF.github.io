@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Google Summer of Code Proposal - JohnPhan | Blog
+        
+    </title>
+
+    <link rel="canonical" href="www.johnphancazf.com/article/Google-Summer-of-Code-Proposal/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/particles.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Phan Nhat Hoang-->
+<!-- Post Header -->
+<style type="text/css">
+    header.bg{
+        
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/img/article_header/article_bg.jpg')
+            /*post*/
+         ;
+        background-size: cover;
+        opacity: 4; 
+    }
+    
+</style>
+
+<header class="intro-header bg" >
+    <!-- <div class = "bg"></div> -->
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                
+                    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+                
+                
+                    <div class="post-heading">
+                        <!-- <div class="tags">
+                            
+                        </div> -->
+                        <h1>Google Summer of Code Proposal</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by John Phan & Huy Phan on
+                            2022-04-21
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Computing Spirit</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+    <!-- Main Content -->
+        <!-- Modify by Phan Nhat Hoang -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-9 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="google-summer-of-code">Google Summer Of Code</h1>
+<p><strong>You can read a more beautiful version of this proposal at this Notion link:</strong></p>
+<p><a href="https://www.notion.so/Google-Summer-Of-Code-ed03bd07df8346218a09306096ee6116" target="_blank" rel="noopener">Google Summer Of Code</a></p>
+<h1 id="organizations-mlpack">Organizations: MLpack</h1>
+<h1 id="proposal-ideas">Proposal ideas:</h1>
+<p>Implementing enhancement modules to improve the ability of original CMA-ES in terms of scalability, performance and finding global optimum.</p>
+<h1 id="objectives">Objectives:</h1>
+<ol>
+<li>Implement 4 extension algorithms (restart-CMA-ES, active-CMA-ES, Sep-CMA-ES and Cholesky-CMA-ES) and get merged into the codebase ensmallen.</li>
+<li>Refactorize the folder ensmallen/include/ensmallen_bits/cmaes with proper APIs for different variations of CMA-ES.</li>
+<li>Write intensive test cases with different kinds of functions and sanity checks for each variation algorithm.</li>
+<li>Detail documentation on the code and create a real-world application of CMA-ES tutorial.</li>
+</ol>
+<h1 id="table-of-contents">Table of contents:</h1>
+<ol>
+<li>About me</li>
+<li>About Project
+<ol>
+<li>Reason</li>
+<li>Summary of CMA-ES</li>
+<li>CMA-ES enhancement</li>
+<li>API Design</li>
+<li>Testing and Benchmarking</li>
+<li>Documentation</li>
+</ol>
+</li>
+<li>Timeline</li>
+</ol>
+<hr>
+<h1 id="1-about-me">1 About Me</h1>
+<h2 id="11-the-student">1.1 The student</h2>
+<ul>
+<li><strong>Name</strong>: Hoang Phan Nhat</li>
+<li><strong>Nickname:</strong> John</li>
+<li><strong>e-mail</strong>: <a href="mailto:johnphan1608@gmail.com" target="_blank" rel="noopener">johnphan1608@gmail.com</a></li>
+<li><strong>GitHub</strong>: <a href="https://github.com/JohnToro-CZAF" target="_blank" rel="noopener">https://github.com/JohnToro-CZAF</a></li>
+<li><strong>Blog</strong>: <a href="https://www.johnphancazf.com/about/">About - JohnPhan | Blog (johnphancazf.com)</a></li>
+<li><strong>Interest and hobbies</strong>: I frequently practice and participate in competitive programming contests. I solve tricky problems in my free time. I desperately to allocate enough time for all of my interest which are competitive programming, large-scaled c++ software, statistics, data science and machine learning. But I actually into all of these fields so I don’t feel tired but sometime it is still overwhelm to me. So I choose to wind down with playing football or PES mobile. Mostly, going out with friends and spending time with family are the ways I choose to let my hair down a bit.</li>
+</ul>
+<h2 id="12-the-institute">1.2 The Institute</h2>
+<ul>
+<li><strong>University:</strong> Nanyang Technological University (NTU), Singapore</li>
+<li><strong>Major:</strong> Computer Science</li>
+<li><strong>Year:</strong> Freshman</li>
+<li><strong>Degree:</strong> Bachelor of Engineering</li>
+<li><strong>From:</strong> 20 Aug 2021 <strong>To:</strong> May 2025 (expected)</li>
+</ul>
+<h2 id="13-programming-experience-and-mathematical-background">1.3 Programming Experience and Mathematical Background</h2>
+<p>I grew up in Viet Nam and spent time to do advanced mathematics at high school. I participated in National Mathematics Olympiad and got fourth highest score (First Prize), from then I got a scholarship and had a chance to study at Nanyang Technological University (Singapore). I did many mathematics courses related to linear programming, optimization, machine learning, statistics like Statistic for application (MIT), Machine Learning (Stanford), Optimization Algorithms (MIT), Statistical Learning (MIT), Reinforcement Learning (Stanford). I am a kind of person who have to learn solid mathematics and reasoning first before enter any related field. Because I focus more in theory part of machine learning so I decided not to hurry to jump on application field like NLP or Computer Vision. I polished my understanding first in classical machine learning algorithm: Linear Regression, Binary Classification, SVMs, PCA, LDA, Naive Bayes Classifier, CNN,… Also in past summer I did depth research on reinforcement learning and recent advances this field like Rainbow, Actor Critic.</p>
+<p>I knew in total 4 programming languages, below is my self-evaluation on programming language skill and how long i have been using them.</p>
+<ol>
+<li>C/C++ : level 4 - 2 years</li>
+<li>Python : level 3 - 3 years</li>
+<li>Javascript: level 3 - 2 years</li>
+<li>R: level 3 - 6 months</li>
+</ol>
+<p>I am a newbie in open-source community, yet still I frequent in git, github and collaborative coding. I also just knew to GSOC 2022 few days before the deadline. This is the reason why I had not have any contributions to mlpack although i really excited about contributing what I learnt to the community. After finishing this proposal, I will jump right on fixing bugs and code review.</p>
+<h1 id="2-about-project">2 About Project</h1>
+<h2 id="21-reason">2.1 Reason</h2>
+<p>The reasons why I chose this project as GSoC project. I have been practicing C++ meta programming and multi-thread lately, mainly by reading “The C++ Programming Language” by the “father” of C++ Bjarne Stroustrup. I tried to implement the C++ matrix library from scratch recently, but everything seems overwhelming to me, so I decided to look for an open-sourced C++ project that aligns with my academic interests which are Statistics and Machine Learning. My mathematics is accumulated over the years, but yet I still have not tried to apply any related algorithm using my favorite programming language - C++</p>
+<p>And surprisedly, mlpack GSoC idea on MCA-ES Enhancement is an intersection of my interests.</p>
+<h2 id="22-summary-of-mca-es-algorithm-and-changes-to-original-algorithm-recent-years">2.2 Summary of MCA-ES algorithm and changes to original algorithm recent years</h2>
+<blockquote>
+<p>I did some research into this field and found some new promising improvements which can easily be integrated into ensmallen library</p>
+</blockquote>
+<p>So the MCA-ES falls into the category of Evolutionary Algorithm(EA) - Evolution strategy. EA algorithms find the candidate solutions in any type of optimization problem by constantly changing the original (randomly generated) population - an inspired biological evolution process.</p>
+<p>A typical ES consists of 4 steps and repeats the steps until the desired population is generated  - qualified by objective function(s)</p>
+<ol>
+<li>Evaluate the fitness of each individual in the population</li>
+<li>Select the fittest individuals for reproduction</li>
+<li>Breed new individuals through crossover and mutation operations to give birth new population (offspring)</li>
+<li>Replace the least-fit individuals of the population with new individuals.</li>
+</ol>
+<p>Our interest problem here is to use an evolutionary algorithm for optimization of real-valued function  $f : \mathbb{R}^{n} \to \mathbb{R}$.</p>
+<p>This particular problem is appealing to the machine learning field since almost machine learning objective functions are $f : \mathbb{R}^{n} \to \mathbb{R}$. The usual algorithm for this problem is gradient descent which required the fitness landscape to be convex while most of the desired loss functions are non-convex. Stochastic and derivative-free methods are theoretically suitable for these types of functions. An ES is designed to tackle this situation.</p>
+<blockquote>
+<p>Intialized distribution parameters $\theta^{0}$<br>
+For generation g = 0,1,2,…<br>
+	Sample $\lambda$ independent points from distribution $P(x|\theta^{g}) \to x _1, …, x _\lambda$<br>
+	Evaluate the sample $x_1, …, x _\lambda$ on $f$<br>
+	Update parameters $\theta^{g+1} = F _{\theta}(\theta^{(g)}, (x _1, f(x _1),…,(x  _\lambda, f(x _\lambda)))$<br>
+	break, if termination criterion met</p>
+</blockquote>
+<p>CMA-ES using normal distribution to draw new population and select $\mu$ best candidates as parents from $\lambda$ for future generation based on fitness values while inferior is discarded (step 1)</p>
+<p>This means that:</p>
+<p>$$<br>
+x_{k}^{(g+1)} \sim m^{(g)} + \sigma^{(g)}\mathcal{N}(\textbf{0}, \textbf{C}^{(g)})<br>
+$$</p>
+<p>For all $k=1,…,\lambda$<br>
+While $\textbf{C}^{(g)}$ is covariance matrix and $\sigma^{(g)}$ is the step-size(recorded should the update be significant or not, depends on <em>cumulative path length control</em> of $g^{\text{th}}$ generation.</p>
+<p>The recombination and mutation of CMA-ES are stimulated by moving the mean and an adaptive covariance matrix after every generation.</p>
+<p>Considering two update quantities separately.</p>
+<h3 id="221-the-mean-of-selection-parents">2.2.1 The mean of selection parents</h3>
+<p>In the original CMA-ES paper, the algorithm suggested that, the new mean $m^{(g+1)}$ of draw distribution(search distribution) is a weighted average of $\mu$ selected points from the sample $x _{1}^{(g+1)},…, x _{\lambda}^{(g+1)}$:</p>
+<p>$$<br>
+m^{(g+1)} = m^{(g)} + c_m*\sum_{i=1}^{\mu}w_{i}*(x_{i:\lambda}^{(g+1)} -m^{(g)})<br>
+$$</p>
+<p>with $x_{i:\lambda}^{(g+1)}$, $i=1,…,\mu$ are the $\mu$  best elements in terms of objective function (best $f(x_{i:\lambda}^{(g+1)})$ among $\lambda$  samples $x_i$. Here we usually set $c_m=1$ as the original paper suggests.</p>
+<p>Setting parameters also is important, since there is a rigorous mathematics explanation in the original paper on how parameters affect performance in each function.</p>
+<p>Original paper suggests:</p>
+<blockquote>
+<p>$\lambda = 4 + \lfloor 3*\ln{n} \rfloor$<br>
+$\mu = \dfrac{\lambda}{2}$</p>
+<p>$w^{’}_{i} = \dfrac{\lambda + 1}{2} - \ln{i}$$= \mu + 0.5 - \ln{i} \quad i = 1, …, \mu$</p>
+<p>$w_{i} = \dfrac{1}{ \sum w^{’}_{i} }$  $i=1,…,\mu$</p>
+</blockquote>
+<p>$\lambda$ can be increased if we are deal with more noisy function while the trade-off is the speed of convergence. The speed decreases at most linearly with $\lambda$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (lambda == <span class="number">0</span>)&#123;</span><br><span class="line">	lambda = (<span class="number">4</span> + <span class="built_in">std</span>::round(<span class="number">3</span> * <span class="built_in">std</span>::<span class="built_in">log</span>(iterate.n_elem))) * <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">size_t</span> mu = <span class="built_in">std</span>::round(lambda / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">BaseMatType w = <span class="built_in">std</span>::<span class="built_in">log</span>(mu + <span class="number">0.5</span>) - arma::<span class="built_in">log</span>(</span><br><span class="line">arma::linspace&lt;BaseMatType&gt;(<span class="number">0</span>, mu - <span class="number">1</span>, mu) + <span class="number">1.0</span>);</span><br><span class="line">w /= arma::accu(w);</span><br></pre></td></tr></table></figure>
+<p>In the implementation of ensmallen:</p>
+<p>First Initialization<br>
+Declare the first average as a random vector lies in $[a,b]^n$ with uniform distribution $\sigma = 0.3(b-a)$ with $a,b$ are the lower bound and upper bound respectively (problem-dependent) as the author suggested (in order to have a faster convergence solution <a href="https://github.com/mlpack/ensmallen/issues/70" target="_blank" rel="noopener">CMA-ES inconsistencies · Issue #70 ·</a>))</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Declare the first average as a random vector lies in [a,b]^n with uniform distribution (sigma) while a, b are the lowerbound and upperbound a</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;BaseMatType&gt; <span class="title">mPosition</span><span class="params">(<span class="number">2</span>, BaseMatType(iterate.n_rows, iterate.n_cols))</span></span></span><br><span class="line"><span class="function"><span class="comment">// vector of 2 matrices recorded the weighted mean m^(g), one before, one after</span></span></span><br><span class="line"><span class="function">BaseMatType <span class="title">sigma</span><span class="params">(<span class="number">2</span>,<span class="number">1</span>)</span> <span class="comment">// vector 2 elements, one before, one after</span></span></span><br><span class="line"><span class="function"><span class="comment">// ...</span></span></span><br><span class="line">mPosition[0] = lowerBound + arma::randu&lt;BaseMatType&gt;(iterate.n_rows,</span><br><span class="line">								,iterate.n_cols) * (upperBound - lowerBound);</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// Calculate the (x_i - m^g) by sampled from distribution C^-1/2 . N(0, I)</span></span><br><span class="line">step = w(<span class="number">0</span>) * pStep[idx(<span class="number">0</span>)];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">1</span>; j &lt; mu; ++j)&#123;</span><br><span class="line">	step += w(j) * pStep[idx(j)];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The update new mean</span></span><br><span class="line">mPosition[idx1] = mPosition[idx0] + sigma(idx0) * step;</span><br></pre></td></tr></table></figure>
+<p>But the update batch only considers $\mu$ candidates from $\lambda$ sampled vectors. This means that the weighted recombination refers to the idea of replacing the computation of the average Eq. (1) with a weighted sum, where the weight of a mutation vector depends on the respective offspring candidate solution’s rank in the set of all $\lambda$ offspring. So the new mean is updated preferably to the direction of successful offspring and discarded the appearance of the remaining $\lambda-\mu$unsuccessful offspring. This is mentioned in [1].  So in order to have a better performance, we should include the unsuccessful samples in the update of the mean by giving them negative weight. Also, Rudolph [2] has shown that by giving negative weights to unfavourable candidate solutions can drive a sooner convergence. In [3] Hansen also mentioned this so he decided to create new setting for the $w(i)$</p>
+<blockquote>
+<p>$w^{’}_{i} = \dfrac{\lambda + 1}{2} - \ln{i}$<br>
+$= \mu + 0.5 - \ln{i}$  for  $i = 1, …, \lambda$</p>
+</blockquote>
+<blockquote>
+<p>$w_{i} = \dfrac{1}{\sum |w^{’}_i|^{+}} w^{’}_i$  if $w^{’}_i \geq 0$ positive weights sum to one</p>
+</blockquote>
+<blockquote>
+<p>$w_{i} = \dfrac{min(\alpha _{\mu}^{-}, \alpha _{\mu _{eff}}^{-}, \alpha _{pos def})}{\sum |w^{’}_i|^{-}}$  if $w^{’}_i &lt; 0$  negative weights usually sum to $-\alpha _{\mu}^{-}$</p>
+</blockquote>
+<!-- min(\alpha _{\mu}^{-}, \alpha _{\mu _{eff}}^{-}, \alpha _{pos def}) -->
+<p>Where</p>
+<blockquote>
+<p>$\lambda _{\mu}  = 1 + \dfrac{c _{1}}{c _{\mu}}$,</p>
+</blockquote>
+<blockquote>
+<p>$\alpha _{\mu _{eff}}^{-} = 1 + \dfrac{2\mu _{eff}^{-}}{\mu _{eff}^{-}+2},$</p>
+</blockquote>
+<blockquote>
+<p>$\alpha _{pos def}^{-} = \dfrac{1-c_1-c _{\mu}}{nc _{\mu}}$.</p>
+</blockquote>
+<p>In old implementation, we calculate the  $w _{i}^{’} = \dfrac{\lambda + 1}{2} - ln(i)$  *= $\mu + 0.5 - ln(i)$  for $i = 1, …, \mu$  and $w _{i} = \dfrac{1}{ \sum w _{i}^{’} }$ for $i=1,…,\mu$ (1)<br>
+Now with new suggested implementation:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">BaseMatType weight_before = <span class="built_in">std</span>::<span class="built_in">log</span>((lambda+<span class="number">1</span>)/<span class="number">2</span>)-</span><br><span class="line">						arm::<span class="built_in">log</span>(arm::linspace&lt;BaseMathType&gt;(<span class="number">0</span>, lambda<span class="number">-1</span>, lambda)) <span class="comment">// The original only get mu effective weight</span></span><br><span class="line">BaseMatType w(lambda, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> mu_neg_eff = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">size_t</span> idx_neg = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; lambda; ++j)&#123;</span><br><span class="line">	<span class="keyword">if</span>(weight_before(j) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">		idx_neg = j;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">w.col(<span class="number">0</span>, idx_neg) = weight_before.col(<span class="number">0</span>, idx_neg)/arm::accu(weight_before.col(<span class="number">0</span>, idx))</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> alpha_mu_negative =<span class="number">1</span>+c1/cmu;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> mueff_negative = arma:accu(weight_before(<span class="number">0</span>,</span><br><span class="line">                idx_neg))/arma:accu(arm:<span class="built_in">pow</span>(weight_before(<span class="number">0</span>, idx_neg), <span class="number">2</span>));</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> alpha_mueff_negative = <span class="number">1</span> + <span class="number">2</span>*mueff_negative/(mueff_negative+<span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> alpha_posdef_negative = (<span class="number">1</span>-c1-cmu)/(iterate.n_elem*cmu);</span><br><span class="line"></span><br><span class="line">w.col(idx_neg+<span class="number">1</span>, lambda) = (weight_before.col(idx_neg+<span class="number">1</span>, lambda) * <span class="built_in">std</span>::min(<span class="built_in">std</span>::min(alpha_mu_negative, alpha_mueff_negative), alpha_posdef_negative))/(arma:accu(w.col(idx_neg+<span class="number">1</span>, lambda)))</span><br></pre></td></tr></table></figure>
+<p>This is my suggested improvement on the CMA-ES algorithm ensmallen on updating the mean. This idea of using negative weights on covariance matrix was benchmarked by author of CMA-ES in 2010 [4] and it is shown significant results.</p>
+<p>Since the weight is changed in order to have a better performance so same goes to $\text{step} = (\textbf{y})^{T}w$</p>
+<p>But in the code, there is no need to change:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">idx = arma::sort_index(pObjective);</span><br><span class="line">step = w(<span class="number">0</span>) * pStep[idx(<span class="number">0</span>)];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">1</span>; j &lt; mu; ++j)</span><br><span class="line">    step += w(j) * pStep[idx(j)];</span><br></pre></td></tr></table></figure>
+<h3 id="222-the-adaptive-covariance-matrix">2.2.2 The adaptive covariance matrix</h3>
+<p>Recall from the main equation of this method:</p>
+<p>$$<br>
+x _{k}^{(g+1)} \sim m^{(g)} + \sigma^{(g)}\mathcal{N}(\textbf{0}, \textbf{C}^{(g)})<br>
+$$</p>
+<p>With $\sigma^{(g)}$is the step-size control coefficient of covariance matrix in generation $(g)$.</p>
+<p>The next quantity we would like to update after every generation is $\sigma^{(g)}\mathcal{N}(\textbf{0}, \textbf{C}^{(g)}) = \mathcal{N}(\textbf{0}, (\sigma^{(g)})^{2}\textbf{C}^{(g)})$</p>
+<p>We will update both $\sigma$ and $C$  depends on situations.</p>
+<p>New population $x_1, x_2,…, x_\lambda$ will be generated from the distribution $\mathcal{N}(m^{(g)}, (\sigma^{(g)})^{2}\textbf{C}^{(g)})$, so by transforming $x_i = m^{(g)} + \sigma^{(g)}y_i$ we will get $y_i \sim \mathcal{N}(\textbf{0}, \textbf{C}^{(g)})$</p>
+<p>And $y_i = \dfrac{x_i-m^{(g)}}{\sigma^{(g)}}$. So by omitting the step-size control into $y_i$, instead of dealing with the giant matrix $C^{(g)}$ we pass the $\sigma^{(g)}$ effective into $y_i$, but these are generating with $y_i \sim \mathcal{N}(\textbf{0}, \textbf{C}^{(g)})$. So we can control the covariance matrix passively by just update $\sigma^{(g)}$ after every generation, the effect will sparks when we realized the sample $y_i$. By doing this way we can just update $\sigma^{(g)}$ separately and not to care much about the algebraic operations.</p>
+<p>Generating $y_i$ first would be more efficient, since we can “reconstruct” $x_i$ with $m^{(g)}$  and $\sigma^{(g)}$ which are already defined in previous generation. This is captured in the ensmallen code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)&#123;</span><br><span class="line">      <span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)&#123;</span><br><span class="line">        pStep[idx(j)] = covLower *</span><br><span class="line">            arma::randn&lt;BaseMatType&gt;(iterate.n_rows, iterate.n_cols);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        pStep[idx(j)] = arma::randn&lt;BaseMatType&gt;(iterate.n_rows, iterate.n_cols)</span><br><span class="line">            * covLower;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      pPosition[idx(j)] = mPosition[idx0] + sigma(idx0) * pStep[idx(j)];</span><br><span class="line"><span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="update-process-after-realized-the-value-of-y_i">Update process: After realized the value of $y_i$</h3>
+<blockquote>
+<p>We want update the covariance matrix in the direction of the most successful vector i.e  $y_{1:\lambda}$ or in the direction of $\mu$ most successful vectors i.e : $y_{1:\lambda}, y_{2:\lambda},…, y_{\mu:\lambda}$</p>
+</blockquote>
+<p>The first choice is called <strong>Rank-One-Update:</strong></p>
+<p>$$<br>
+C^{(g+1)} = (1-c_1)C^{(g)} + c_1y_{1:\lambda}y_{1:\lambda}^{T}<br>
+$$</p>
+<p>With $c_1$ is smoothing coefficient, see more in <a href="https://www.notion.so/154ec7efe1554480a755a50c323119e5" target="_blank" rel="noopener">Smoothing Technique</a>. Denoted $y^{(g)} = y_{1:\lambda}$ for short. But the outer product $y^{(g)}(y^{(g)})^{T}$ has positive entries, so what if the coordinates of $y^{(g)}$ are negative? We will favor the opposite direction. To fix this, author utilized the previous “memory” to give a new update a sense which direction algorithm is updating and averaging out the positive or negative coefficients.</p>
+<p><strong>Evolution Path:</strong></p>
+<p>So instead of using only one successful  $y^{(g)}$, we will use the overall tendency of the most $\mu$ successful steps and constantly update it after each generation.</p>
+<p>$$<br>
+p_{c}^{(g+1)} = (1-c_c)p_{c}^{(g)}+\sqrt{c_c(2-c_c)\mu_{eff}}\dfrac{m^{(g+1)} - m^{(g)}}{\sigma^{(g)}}<br>
+$$</p>
+<blockquote>
+<p>The term $\sqrt{c_c(2-c_c)\mu_{eff}}$  is to “averaging” out the $-1$  or $1$ coefficients of the changes, this were addressed further more in [6]Tutorial.</p>
+</blockquote>
+<p>Now we already have an update procedure to new “effective” covariance matrix, but we still missing one quantity which not yet update - step-size control $\sigma^{(g)}$.</p>
+<p><strong>Update procedure for $\sigma^{(g)}$:</strong></p>
+<p>Based on following reasons, we should update $\sigma^{(g)}$ according to the changes of evolution path and from that, propose a separated quantity to capture these changes.</p>
+<ol>
+<li>Whenever the evolution path is short, single steps cancel each other out (this is due to the fact that: every vector is produced from a stochastic process) So if steps extinguish each other, the step-size should be decreased</li>
+<li>Whenever the evolution path is long, the single steps are pointing to similar direction. Because the steps are similar, the same distance can be covered fewer but longer steps into the same direction. So in this case, to control the steps growing in the same direction, the step-size should be increased</li>
+</ol>
+<p>So what are the “short” and “long” mean ? The steps is short or long with respective to which quantity.</p>
+<p>$$<br>
+y_i \sim \mathcal{N}(0, C^{(g)}) \rightarrow (C^{(g)})^{\frac{-1}{2}}y_i \sim \mathcal{N}(0, \textbf{I})<br>
+$$</p>
+<p>By just multiplying the steps with $(C^{(g)})^{\frac{-1}{2}}$we get an isotropic vector lies in $\mathcal{N}(0, \textbf{I})$. So the expected length of steps is $\mathbb{E}|\mathcal{N}(0,\textbf{I})|$. So the conjugate path $p_{\sigma}^{(g+1)}$ of $p_{c}^{g+1}$with step now lies in $\mathcal{N}(0, \textbf{I})$ would be:</p>
+<p>$$<br>
+p_{\sigma}^{(g+1)} = (1-c_\sigma)p_{\sigma}^{(g)} + \sqrt{c_\sigma(2-c_\sigma)\mu_{eff}}(C^{(g)})^{\frac{-1}{2}} \dfrac{m^{(g+1)} - m^{(g)}}{\sigma^{(g)}}<br>
+$$</p>
+<p><strong>Update on $\sigma^{(g+1)}$</strong></p>
+<p>$$<br>
+\sigma^{(g+1)} = \sigma^{(g)}\exp \left( \dfrac{c_\sigma}{d_\sigma} \left(\dfrac{|p_{\sigma}^{(g+1)}|}{\mathbb{E}|\mathcal{N}(0,\textbf{I})|} - 1 \right) \right)<br>
+$$</p>
+<p>By giving to $\sigma^{(g)}$  an update based on the length of previous sampled step, we can meet a case when $\sigma^{(g)}$ is too small, and suddenly new generated steps are big then the update to the new $p_c^{(g+1)}$ can be unreasonably big. To overcome this situation, author proposed another control factor $h_{\sigma} = \mathbb{I}{ {\dfrac{ | p_\sigma | }{1-(1-c_\sigma)^{2*(g+1)}} &lt; (1.4+\dfrac{2}{n+1})\mathbb{E}|\mathcal{N}(0,\textbf{I})|} }$. And the new update on cumulative path should be:</p>
+<p>$$<br>
+p_c \leftarrow (1-c_c)p_c + h_\sigma\sqrt{c_c(2-c_c)\mu_{eff}}(\textbf{y}.w)<br>
+$$</p>
+<p>This is captured in the ensmallen code:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> enn = <span class="built_in">std</span>::<span class="built_in">sqrt</span>(iterate.n_elem) * (<span class="number">1.0</span> - <span class="number">1.0</span> /</span><br><span class="line">      (<span class="number">4.0</span> * iterate.n_elem) + <span class="number">1.0</span> / (<span class="number">21</span> * <span class="built_in">std</span>::<span class="built_in">pow</span>(iterate.n_elem, <span class="number">2</span>)));</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> h = (<span class="number">1.4</span>+<span class="number">2.0</span>/(iterate.n_elem+<span class="number">1.0</span>))*enn</span><br><span class="line"><span class="keyword">if</span> ((psNorm / <span class="built_in">sqrt</span>(<span class="number">1</span> - <span class="built_in">std</span>::<span class="built_in">pow</span>(<span class="number">1</span> - cs, <span class="number">2</span> * i))) &lt; h)&#123;</span><br><span class="line">	pc[idx1] = (<span class="number">1</span> - cc) * pc[idx0] + <span class="built_in">std</span>::<span class="built_in">sqrt</span>(cc * (<span class="number">2</span> - cc) *</span><br><span class="line">        muEffective) * step;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">	pc[idx1] = (<span class="number">1</span> - cc) * pc[idx0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Since I have changed the <a href="https://www.notion.so/Google-Summer-Of-Code-ed03bd07df8346218a09306096ee6116" target="_blank" rel="noopener">weight</a> and it does not affect on $\textbf{y}$ in the <a href="https://www.notion.so/Google-Summer-Of-Code-ed03bd07df8346218a09306096ee6116" target="_blank" rel="noopener">old code</a>. So this part I do not need to change anything. But the next part, there is going to have big changes.</p>
+<p>The second choice to the <a href="https://www.notion.so/Google-Summer-Of-Code-ed03bd07df8346218a09306096ee6116" target="_blank" rel="noopener">decision</a> is called <strong>Rank-$\mu$-Update</strong></p>
+<p>In the original paper, author suggested to add $\mu$ direction into the covariance matrix and smoothing the old memory</p>
+<p>$$<br>
+C^{(g+1)} = (1-c_\mu)C^{(g)} + c_\mu \sum_{i=1}^{\mu}w_iy_{i:\lambda}^{(g+1)}(y_{i:\lambda}^{(g+1)})^{T}<br>
+$$</p>
+<p>But only include $\mu$ is not the best strategy, as we discussed on <a href="https://www.notion.so/Google-Summer-Of-Code-ed03bd07df8346218a09306096ee6116" target="_blank" rel="noopener">above</a>. So by updating new weight, the $\text{rank}-\mu-\text{Update}$ needs to be changed.</p>
+<p>$$<br>
+C^{(g+1)} = (1-c_{\mu})C^{(g)} +  c_\mu\sum_{i=1}^{\lambda}w_{i}^{\circ}y_{i:\lambda}^{(g+1)}(y_{i:\lambda}^{(g+1)})^{T}<br>
+$$</p>
+<blockquote>
+<p>$w_{i}^{\circ} = w_{i}$ x (1 if $w_i \geq 0$ else $n/|C^{\frac{-1}{2}}y_{i:\lambda}|$</p>
+</blockquote>
+<p>Combine this with <strong>Rank-1-Update,</strong> we have following update to covariance matrix:</p>
+<p>$$<br>
+C \leftarrow (1+c_1\delta(h_\sigma)-c_1-c_\mu \sum w_j)C + c_1p_cp_c^{\textbf{T}} + c_\mu\sum_{i=1}^{\lambda}w_{i}^{\circ}y_{i:\lambda}^{(g+1)}(y_{i:\lambda}^{(g+1)})^{\textbf{T}}<br>
+$$</p>
+<blockquote>
+<p>$\delta{(h_\sigma)} = (1-h_{\sigma})c_c(2-c_c) \leq 1$</p>
+</blockquote>
+<p>In compare with the implemented formula in ensmallen:</p>
+<p>$$<br>
+C \leftarrow (1-c_1-c_{\mu}\sum{w_j})C + c_1(p_cp_c^{\textbf{T}}+(1-h_\sigma)c_c(2-c_c)C) + c_\mu\sum_{i=1}^{\mu}w_{i}y_{i:\lambda}^{(g+1)}(y_{i:\lambda}^{(g+1)})^{\textbf{T}}<br>
+$$</p>
+<blockquote>
+<p>$w_{i}^{\circ}$  is a new term, with negative weight, we have to multiply $w_i$  with $(C^{\frac{-1}{2}})^{(g)}y_{i:\lambda}$, but this quantity is a vector which were generated by $\mathcal{N}(0,\textbf{I})$ in the code</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pStep[idx(j)] = covLower * arma::randn&lt;BaseMatType&gt;(iterate.n_rows, iterate.n_cols);</span><br></pre></td></tr></table></figure>
+<p>So I just need to recorded these vectors($\lambda$ vectors) into a vector $\textbf{z}$.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;BaseMatType&gt; <span class="title">z</span><span class="params">(lambda, BaseMatType&gt;(iterate.n_rows, iterate.n_cols))</span></span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)&#123;</span><br><span class="line">  <span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)&#123;</span><br><span class="line">		z(j) = arma::randn&lt;BaseMatType&gt;(iterate.n_rows, iterate.n_cols);</span><br><span class="line">    pStep[idx(j)] = covLower*z(j)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		z(j) = arma::randn&lt;BaseMatType&gt;(iterate.n_rows, iterate.n_cols);</span><br><span class="line">    pStep[idx(j)] = z(j)*covLower; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>I suggest new implementation of covariance update (on the left) versus the old implementation(on the right)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> hs = (psNorm / <span class="built_in">sqrt</span>(<span class="number">1</span> - </span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">pow</span>(<span class="number">1</span> - cs, <span class="number">2</span> * i))) &lt; h) ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> deltahs = (<span class="number">1</span>-hs)*cc*(<span class="number">2</span>-cc)</span><br><span class="line"></span><br><span class="line"><span class="comment">//Update cumulative path</span></span><br><span class="line">pc[idx1] = (<span class="number">1</span> - cc) * pc[idx0] + </span><br><span class="line">	hs * <span class="built_in">std</span>::<span class="built_in">sqrt</span>(cc * (<span class="number">2</span> - cc) * muEffective) * step;</span><br><span class="line"><span class="comment">// Intiate new C by old C term </span></span><br><span class="line">C[idx1] = (<span class="number">1</span>+c1*deltahs-c1-cmu*arma::accu&#123;w&#125;)*C[idx0]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)&#123;</span><br><span class="line">	<span class="comment">// Add rank-one update to covariance</span></span><br><span class="line">   C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 *</span><br><span class="line">          (pc[idx1] * pc[idx1].t());</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">   C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 *</span><br><span class="line">          (pc[idx1].t() * pc[idx1]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Add rank-mu term with new weight idea</span></span><br><span class="line"><span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)</span><br><span class="line">  &#123;</span><br><span class="line">		<span class="keyword">if</span>(w(j) &lt; <span class="number">0</span>) w(j) *= n/arma::norm(z(j))</span><br><span class="line">    C[idx1] = C[idx1] + cmu * w(j) *</span><br><span class="line">        pStep[idx(j)] * pStep[idx(j)].t();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)</span><br><span class="line">  &#123;</span><br><span class="line">		<span class="keyword">if</span>(w(j) &lt; <span class="number">0</span>) w(j) *= n/arma::norm(z(j))</span><br><span class="line">    C[idx1] = C[idx1] + cmu * w(j) *</span><br><span class="line">        pStep[idx(j)].t() * pStep[idx(j)];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ((psNorm / <span class="built_in">sqrt</span>(<span class="number">1</span> - <span class="built_in">std</span>::<span class="built_in">pow</span>(<span class="number">1</span> - cs, <span class="number">2</span> * i))) &lt; h)</span><br><span class="line">&#123;</span><br><span class="line">  pc[idx1] = (<span class="number">1</span> - cc) * pc[idx0] + <span class="built_in">std</span>::<span class="built_in">sqrt</span>(cc * (<span class="number">2</span> - cc) *</span><br><span class="line">    muEffective) * step;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)</span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 *</span><br><span class="line">      (pc[idx1] * pc[idx1].t());</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 *</span><br><span class="line">      (pc[idx1].t() * pc[idx1]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">  pc[idx1] = (<span class="number">1</span> - cc) * pc[idx0];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)</span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 * (pc[idx1] *</span><br><span class="line">        pc[idx1].t() + (cc * (<span class="number">2</span> - cc)) * C[idx0]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = (<span class="number">1</span> - c1 - cmu) * C[idx0] + c1 *</span><br><span class="line">        (pc[idx1].t() * pc[idx1] + (cc * (<span class="number">2</span> - cc)) * C[idx0]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; mu; ++j)</span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = C[idx1] + cmu * w(j) *</span><br><span class="line">        pStep[idx(j)] * pStep[idx(j)].t();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; mu; ++j)</span><br><span class="line">  &#123;</span><br><span class="line">    C[idx1] = C[idx1] + cmu * w(j) *</span><br><span class="line">        pStep[idx(j)].t() * pStep[idx(j)];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The new implementation discarded the one <code>if else</code>  statement by introducing the <code>deltahs</code> variable. Also add new changes to the weight <code>w</code> by recording <code>z(j)</code></p>
+<h2 id="23-cma-es-enhancements">2.3 CMA-ES enhancements</h2>
+<h3 id="231-active-cma-es">2.3.1 <strong>Active-CMA-ES</strong></h3>
+<p>There’re minor modifications on the covariance update formula from [3] : Using negative weights on bad mutation offspring in formula 16th from:</p>
+<p>$$<br>
+\begin{aligned}<br>
+\boldsymbol{C}^{(g+1)} &amp;=\left(1-c _{\mu} \sum w _{i}\right) \boldsymbol{C}^{(g)}+c _{\mu} \sum _{i=1}^{\lambda} w _{i} \boldsymbol{y} _{i: \lambda}^{(g+1)} \boldsymbol{y} _{i: \lambda}^{(g+1)^{\top}} \&amp;=\boldsymbol{C}^{(g)^{1 / 2}}\left(\mathbf{I}+ c _{\mu} \sum _{i=1}^{\lambda} w _{i}\left(\boldsymbol{z} _{i: \lambda}^{(g+1)} \boldsymbol{z} _{i: \lambda}^{(g+1)^{\top}}- \mathbf{I} \right) \right) \boldsymbol{C}^{(g)^{1 / 2}}<br>
+\end{aligned}<br>
+$$</p>
+<p>To this formula [1] where $Z$ is $\text{rank}-\mu$ covariance matrix:</p>
+<p>$$<br>
+\begin{aligned} \mathbf{Z}=\mathbf{B D} \left( \frac{1}{\mu} \sum _{k=1}^{\mu} \mathbf{z} _{k ; \lambda} \mathbf{z} _{k ; \lambda}^{\mathrm{T}}-\frac{1}{\mu} \sum _{k=\lambda-\mu+1}^{\lambda} \mathbf{z} _{k ; \lambda} \mathbf{z} _{k ; \lambda}^{\mathrm{T}}\right)(\mathbf{B D})^{\mathrm{T}} .\end{aligned}<br>
+$$</p>
+<p>Furthermore, in order to maintain stationary of the expectation of the covariance matrix under random selection, Active-CMA-ES change the covariance matrix update formula 30 from:</p>
+<p>$$<br>
+\begin{aligned}&amp;\boldsymbol{C}^{(g+1)}=(\underbrace{1-c _{1}-c _{\mu} \sum w _{j}} _{\text {can be close or equal to } 0}) \boldsymbol{C}^{(g)}\&amp;+c _{1} \underbrace{\boldsymbol{p} _{\mathrm{c}}^{(g+1)} \boldsymbol{p} _{\mathrm{c}}^{(g+1)^{\top}}} _{\text {rank-one update }}+\underbrace{\sum _{i=1}^{\lambda} w _{i} \boldsymbol{y} _{i: \lambda}^{(g+1)}\left(\boldsymbol{y} _{i: \lambda}^{(g+1)}\right)^{\top}} _{\text {rank- } \mu \text { update }}\end{aligned}<br>
+$$</p>
+<p>To this formula where $\beta = \frac{4\mu-2}{(n+12)^{12}+4\mu}$, $c_{cov} = \frac{2}{(n+\sqrt{2})^{2}}$ (found by non-linear fitting to lots of test functions):</p>
+<p>$$<br>
+\mathbf{C} \leftarrow\left(1-c _{\text {cov }}\right) \mathbf{C}+c _{\operatorname{cov}} \mathbf{p} _{\mathbf{C}} \mathbf{p} _{\mathbf{C}}^{\mathrm{T}}+\beta \mathbf{Z}<br>
+$$</p>
+<p>Implementation details from ensmallen to below codes:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">size_t</span> mu = <span class="built_in">std</span>::round(lambda / <span class="number">2</span>);</span><br><span class="line">BaseMatType w = <span class="built_in">std</span>::<span class="built_in">log</span>(mu + <span class="number">0.5</span>) - arma::<span class="built_in">log</span>(</span><br><span class="line">      arma::linspace&lt;BaseMatType&gt;(<span class="number">0</span>, mu - <span class="number">1</span>, mu) + <span class="number">1.0</span>);</span><br><span class="line">w /= arma::accu(w);</span><br><span class="line"><span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; mu; ++j)&#123;</span><br><span class="line">		C[idx1] = C[idx1] + cmu * w(j) * pStep[idx(j)] * pStep[idx(j)].t();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; mu; ++j)&#123;</span><br><span class="line">		C[idx1] = C[idx1] + cmu * w(j) * pStep[idx(j)].t() * pStep[idx(j)];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">size_t</span> mu = <span class="built_in">std</span>::round(lambda / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">float</span> beta = (<span class="number">4</span>*mu<span class="number">-2</span>)/((iterate.n_elements+<span class="number">12</span>)**<span class="number">2</span>+<span class="number">4</span>*mu)</span><br><span class="line">BaseMatType w = arma::vec(mu).fill(<span class="number">1</span>/mu);</span><br><span class="line"><span class="keyword">if</span> (iterate.n_rows &gt; iterate.n_cols)&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)&#123;</span><br><span class="line">		C[idx1] = C[idx1] +beta * w(j) * pStep[idx(j)] * pStep[idx(j)].t();</span><br><span class="line">		C[idx1] = C[idx1] - beta * w(j) * pStep[idx(lambda-j+<span class="number">1</span>)] * pStep[idx(lambda-j+<span class="number">1</span>)].t();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; lambda; ++j)&#123;</span><br><span class="line">		C[idx1] = C[idx1] + beta * w(j) * pStep[idx(j)].t() * pStep[idx(j)];</span><br><span class="line">		C[idx1] = C[idx1] - beta * w(j) * pStep[idx(lambda-j+<span class="number">1</span>)].t() * pStep[idx(lambda-j+<span class="number">1</span>)];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="232-ipop-cma-es">2.3.2 <strong>IPOP-CMA-ES</strong></h3>
+<p>This can be called as a restart-CMA evolution strategy, where the population size $\lambda$ is increased by a factor of $\alpha$ (normally $\alpha$ is set to be between 2 and 3) and all other parameters will be reset for each restart (IPOP). We will have a loop with maximum number of restarts ($n_{\text{restart}}$), for each iteration, the original CMA-ES will be called and the returned solution will be stored if it’s the best one in the loop. The loop only breaks when the number of function evaluations exceeds $n\times 10^{4}$ or the objective function error value is below $10^{-8}$. Furthermore, in each iteration, the optimization process of CMA-ES can be ended “early” for the loop to skip to the following restart if the optimization process meet the stopping criteria:</p>
+<ol>
+<li>Stop if the range of the best objective function values of the last $10 + \lceil \frac{30}{n}\rceil$ generations is zero ($\text{equalfunvalhist}$), or the range of these function values and all function values of the recent generation is below $\text{Tolfun} = 10^{-12}$.</li>
+<li>Stop if the standard deviation of the normal distribution is smaller than $\text{TolX}$ in all coordinates and $p_c$ is smaller than $\text{TolX}$ in all components. We set $\text{TolX}= 10^{-12}$. where $p_c \leftarrow (1-c_c)p_c + h_\sigma\sqrt{c_c(2-c_c)\mu_{eff}}(\textbf{y}.w)$ for each update iteration of optimization process (not the restart iteration).</li>
+<li>Stop if adding a 0.1-standard deviation vector in a principal axis direction of $C^{(g)}$ does not change $m^{(g)}$ ($\text{noteffectaxis}$).</li>
+<li>Stop if adding a 0.2-standard deviation vector in each coordinate does not change $m^{(g)}$ ($\text{noteffectcoord}$).</li>
+<li>Stop if the $|C^{(g)}|\times |(C^{(g)})^{-1}|$ (condition number of the covariance matrix) exceeds $10^{14}$ ($\text{conditionconv}$).</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> SelectionPolicyType&gt;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> SeparableFunctionType,</span><br><span class="line">         <span class="keyword">typename</span> MatType,</span><br><span class="line">         <span class="keyword">typename</span>... CallbackTypes&gt;</span><br><span class="line"><span class="keyword">typename</span> MatType::elem_type IPOPCMAES&lt;SelectionPolicyType&gt;::Optimize(</span><br><span class="line">    SeparableFunctionType&amp; function,</span><br><span class="line">    MatType&amp; iterateIn,</span><br><span class="line">    CallbackTypes&amp;&amp;... callbacks)&#123;</span><br><span class="line">	<span class="comment">//... Initialization of all neccesary parameters &lt;only the types except the lambda&gt;</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> n_restart = <span class="number">9</span>;</span><br><span class="line">	BaseMatType&amp; best_solution;</span><br><span class="line">	ElemType ipop_best_objective;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">float</span> factor = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//Iteratively called the same block of code of optimize method of CMAES</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n_restart; ++i)&#123;</span><br><span class="line">		<span class="comment">//.. Initialize parameters with values to reset parameters purposefully</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">1</span>; j &lt; maxIterations)&#123;</span><br><span class="line">			<span class="comment">//... Cholensky factorization, choosing mu parents, evaluate the objectives</span></span><br><span class="line">			<span class="keyword">if</span> (currentObjective &lt; overallObjective)</span><br><span class="line">	    &#123;</span><br><span class="line">	      overallObjective = currentObjective;</span><br><span class="line">	      iterate = mPosition[idx1];</span><br><span class="line">	    &#125;</span><br><span class="line">			<span class="comment">//... (the update of parameters)</span></span><br><span class="line">			<span class="keyword">if</span> (IPOPCMAES&lt;SelectionPolicyType&gt;::TolFun())&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">if</span> (IPOPCMAES&lt;SelectionPolicyType&gt;::TolX(pc))&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">if</span> (IPOPCMAES&lt;SelectionPolicyType&gt;::noteffectaxis(C, mPosition))&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">if</span> (IPOPCMAES&lt;SelectionPolicyType&gt;::noteffectcoord(mPosition))&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">			<span class="keyword">if</span> (IPOPCMAES&lt;SelectionPolicyType&gt;::conditionconv(C))&#123;<span class="keyword">break</span>;&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//Get the best value among the restarts</span></span><br><span class="line">		<span class="keyword">if</span> (overallObjective &lt; ipop_best_objective)&#123;</span><br><span class="line">			ipop_best_objective = overallObjective;</span><br><span class="line">			best_solution = iterate;</span><br><span class="line">		&#125;</span><br><span class="line">		lambda = lambda*factor;</span><br><span class="line">		<span class="keyword">if</span> (<span class="built_in">std</span>::isnan(ipop_best_objective) || <span class="built_in">std</span>::isinf(ipop_best_objective))</span><br><span class="line">    &#123;</span><br><span class="line">      Warn &lt;&lt; <span class="string">"IPOP-CMA-ES: converged to "</span> &lt;&lt; ipop_best_objective &lt;&lt; <span class="string">"; "</span></span><br><span class="line">          &lt;&lt; <span class="string">"terminating with failure.  Try a smaller step size?"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">      Callback::EndOptimization(*<span class="keyword">this</span>, function, best_solution, callbacks...);</span><br><span class="line">      <span class="keyword">return</span> ipop_best_objective;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">std</span>::<span class="built_in">abs</span>(lastObjective - ipop_best_objective) &lt; tolerance)</span><br><span class="line">    &#123;</span><br><span class="line">      Info &lt;&lt; <span class="string">"IPOP-CMA-ES: minimized within tolerance "</span> &lt;&lt; tolerance &lt;&lt; <span class="string">"; "</span></span><br><span class="line">          &lt;&lt; <span class="string">"terminating optimization."</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">      Callback::EndOptimization(*<span class="keyword">this</span>, function, best_solution, callbacks...);</span><br><span class="line">      <span class="keyword">return</span> ipop_best_ojective;</span><br><span class="line">    &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="233-sep-cma-es">2.3.3 Sep-CMA-ES</h3>
+<p>To enable the algorithm for large scale optimization, a linear time and space version called sep-CMA-ES was proposed by<br>
+Ros and Hasen [6]. The algorithm does not learn dependencies but the scaling of variables by restraining the covariance matrix update to the diagonal elements. This means we will constraint $C = \sigma_{rescale}^{(g)}I$. Therefore the update rule for covariance matrix only cares about the diagonal elements which costs $O(n)$.</p>
+<p>$$<br>
+c _{j j}^{t+1}=\left(1-c _{c o v}\right) c _{j j}^{t}+\frac{1}{\mu _{c o v}}\left(\boldsymbol{p} _{c}^{t+1}\right) _{j}^{2}+c _{c c o v}\left(1-\frac{1}{\mu _{c c o v}}\right) \sum _{i=1}^{\mu} w _{i} c _{j j}^{t}\left(z _{i: \lambda}^{t+1}\right) _{j}^{2}, j=1, \ldots, n<br>
+$$</p>
+<h3 id="234-cholesky-cma-es">2.3.4 Cholesky-CMA-ES</h3>
+<p>The advantage of CMA-ES is learning the dependencies between $n$ decision variables, also forms its main practical limitations such as $O(n^{3})$ to do Cholesky factorization for rolling out mutation vectors from Multivariable Normal Distribution. This’s extremely expensive for large-scale optimization. Cholesky-CMA-ES [7] can prove that we can update the Cholesky factors iteratively in the certain way such that this equals with continuously update the covariance matrix then factorize it into Cholesky factors again. This update rule for Cholesky factors is inly true for rank-1 update.</p>
+<p>$$<br>
+\boldsymbol{C}^{(g+1)}=\alpha \boldsymbol{C}^{(g)}+\beta \boldsymbol{p} _{c}^{(g)} \boldsymbol{p} _{c}^{(g)^{\mathrm{T}}}<br>
+$$</p>
+<p>Update rules for Cholesky factor and its inverse (this can be understand as alternative update rule for covariance matrix)</p>
+<p>$$<br>
+\boldsymbol{A}^{(g+1)}=\sqrt{\alpha} \boldsymbol{A}^{(g)}+\frac{\sqrt{\alpha}}{\left|\boldsymbol{z}^{(g)}\right|^{2}}\left(\sqrt{1+\frac{\beta}{\alpha}\left|\boldsymbol{z}^{(g)}\right|^{2}}-1\right)\left[\boldsymbol{A}^{(g)} \boldsymbol{z}^{(g)}\right] \boldsymbol{z}^{(g)^{T}}<br>
+$$</p>
+<p>$$<br>
+\boldsymbol{A}^{(g+1)^{-1}}=\frac{1}{\sqrt{\alpha}} \boldsymbol{A}^{g^{-1}}-\frac{1}{\sqrt{\alpha}\left|\boldsymbol{z}^{(g)}\right|^{2}}\left(1-\frac{1}{\sqrt{1+\frac{\beta}{\alpha}\left|\boldsymbol{z}^{(g)}\right|^{2}}}\right) \boldsymbol{z}^{(g)}\left[\boldsymbol{z}^{(g)^{T}} \boldsymbol{A}^{(g)^{-1}}\right]<br>
+$$</p>
+<p>where $\boldsymbol{z} _{t}$ is a vector $R^{n}$ such that  $\boldsymbol{p}^{(g)} _{c} = \boldsymbol{A}^{(g)}\boldsymbol{z}^{(g)}$.</p>
+<h2 id="24-api-design">2.4 API Design</h2>
+<p>Since I am not full aware of the architecture that ensmallen are using. So there will be some points I implement the API in the way that is not compatible with ensmallen. I will need some advices on this problem. If my idea of splitting the CMA-ES into small components(stop the code duplication in improved methods) become infeasible, then I simply back to the idea of implementing each of algorithm separately.</p>
+<p>The idea is inspired when I look into <a href="https://github.com/mlpack/ensmallen/tree/master/include/ensmallen_bits/moead" target="_blank" rel="noopener">moead</a> folder where author implement MOEA/D-DE, written by Nanubala Gnana Sai. Also I modularize both improvements and original algorithm to similar structure of <a href="https://github.com/CMA-ES/libcmaes" target="_blank" rel="noopener">CMA-ES/libcmaes</a>.</p>
+<p>The folder uses object-oriented policy-based design which is compatible with current ensmallen and makes extensive use of templates.</p>
+<p>All the code will be under “cmaes” in the <a href="https://github.com/mlpack/ensmallen/tree/master/include" target="_blank" rel="noopener">include/ensmallen_bits</a> folder.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">+-- selection_policies</span><br><span class="line">		+-- full_selection.hpp</span><br><span class="line">		+-- random_selection.hpp</span><br><span class="line">+-- stop_policies</span><br><span class="line">		+-- default_stop.hpp</span><br><span class="line">		+-- ipop_stop.hpp</span><br><span class="line">+-- cmaparameters.hpp</span><br><span class="line">+-- cmaes.hpp</span><br><span class="line">+-- cmaes_impl.hpp</span><br><span class="line">+-- sepcmaes.hpp</span><br><span class="line">+-- sepcmaes_impl.hpp</span><br><span class="line">+-- cholcmaes.hpp</span><br><span class="line">+-- cholcmaes_impl.hpp</span><br></pre></td></tr></table></figure>
+<p>The <code>cmaes_impl.hpp</code>, <code>sepcmaes.hpp</code>, <code>cholcmaes.hpp</code> and maybe more similar improvements will be included. Most of them are different in covariance matrix update part. So it is better to code the covariance matrix update separately in each of improvement. In future or during the program, if it is feasible then I can implement a separate function <code>covariance_update</code></p>
+<p>The significant change is introducing new class <code>cmaparameters</code> .  <code>cmaparameters</code> object captures hyper-parametes like $\mu, h_{\sigma},…$ and inputs (iterate) to the algorithm, such as offspring per generation, initial step-size, lower bound, upper bound, … Also I will leave the $\lambda$ as a parameter to this object. By introducing this class, we can reduce the amount of code to write fixed parameters, most of them are constant in the beginning of instantiation of the class. And minor changes to this object if we use different improvements.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> ens&#123;</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">CMAparameters</span> &#123;</span></span><br><span class="line">		<span class="keyword">public</span>: </span><br><span class="line">			CMAparameters() &#123;&#125;</span><br><span class="line">			<span class="keyword">template</span>&lt;<span class="keyword">typename</span> MatType&gt;</span><br><span class="line">			CMAparameters(MatType&amp; x0, </span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">size_t</span> &amp;lambda = <span class="number">0</span>,</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">double</span> &amp;sigma,</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">size_t</span> batch</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">double</span> lowerBound</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">double</span> upperBound,</span><br><span class="line">				<span class="keyword">const</span> <span class="keyword">size_t</span> maxIterations)</span><br><span class="line">			<span class="function"><span class="keyword">void</span> <span class="title">set_algo</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">string</span>)</span></span>&#123;</span><br><span class="line">				<span class="comment">// setup the params depends on which algo we are using</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">// get param functions</span></span><br><span class="line">		<span class="keyword">private</span>:</span><br><span class="line">				<span class="comment">// General params</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>So below is the <code>cmaes.hpp</code> structure, every improvement should be like this, the only difference is in Optimize function.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"selection_policies/full_selection.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"selection_policies/random_selection.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stop_policies/default_stop.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stop_policies/ipop_policies.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"cmaparameters.hpp"</span></span></span><br><span class="line"><span class="keyword">namespace</span> ens&#123;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> SelectionPolicyType = FullSelection,</span><br><span class="line">						<span class="keyword">typename</span> StopPolicyType = DefaultStop&gt;</span><br><span class="line">	class CMAES&#123;</span><br><span class="line">		<span class="keyword">public</span>:</span><br><span class="line">			CMAES()&#123;&#125;;</span><br><span class="line">			CMAES(</span><br><span class="line">				CMAparameters&amp; params = CMAparameters();</span><br><span class="line">				<span class="keyword">const</span> SelectionPolicyType&amp; selectionPolicy = SelectionPolicyType(),</span><br><span class="line">				<span class="keyword">const</span> StopPolicyType&amp; stopPolicy = StopPolicyType());</span><br><span class="line">		<span class="keyword">template</span>&lt;<span class="keyword">typename</span> SeparableFunctionType,</span><br><span class="line">           <span class="keyword">typename</span>... CallbackTypes&gt;</span><br><span class="line">	  <span class="function"><span class="keyword">typename</span> MatType::elem_type <span class="title">Optimize</span><span class="params">(SeparableFunctionType&amp; function,</span></span></span><br><span class="line"><span class="function"><span class="params">                                       CallbackTypes&amp;&amp;... callbacks)</span></span>;</span><br><span class="line">		<span class="comment">// Optimize function are different from each other (covariance update)</span></span><br><span class="line">		<span class="keyword">private</span>:</span><br><span class="line">			CMAparametes params;</span><br><span class="line">			SelectionPolicyType selectionPolicy;</span><br><span class="line">			StopPolicyType stopPolicy;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">template</span>&lt;<span class="keyword">typename</span> SelectionPolicyType = RandomSelection, StopPolicyType = DefaultStop&gt;</span><br><span class="line">	<span class="keyword">using</span> ApproxCMAES = CMAES&lt;SelectionPolicyType, StopPolicyType &gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>In order to use optimize a function, first we have to instantiate the <code>CMAparameters</code> including the first start vector.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CMAparameters params = CMAparameters(arma::uvec(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>), <span class="number">4</span>+<span class="number">3</span>*<span class="built_in">std</span>::<span class="built_in">log</span>(<span class="number">3</span>), <span class="number">4</span>, <span class="number">-10.0</span>, <span class="number">10.0</span>)</span><br><span class="line">ApproxCMAES&lt;&gt; optimizer = ApproxCMAES&lt;&gt;(params);</span><br><span class="line">optimizer.optimize(function)</span><br></pre></td></tr></table></figure>
+<h2 id="25-testing-and-benchmark">2.5 Testing and Benchmark</h2>
+<p>In order to check the functionality of CMA-ES in ensmallen, 4 tests was implemented in ensmallen. However, these tests mostly are for sanity checks and only examine CMA-ES with logistic regression function under different selection policies and matrix types (float or double).</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ensmallen.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"catch.hpp"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"test_function_tools.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> ens;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> ens::test;</span><br><span class="line">TEST_CASE(<span class="string">"CMAESLogisticRegressionTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">  LogisticRegressionFunctionTest(cmaes, <span class="number">0.003</span>, <span class="number">0.006</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line">TEST_CASE(<span class="string">"ApproxCMAESLogisticRegressionTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">ApproxCMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">  LogisticRegressionFunctionTest(cmaes, <span class="number">0.003</span>, <span class="number">0.006</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line">TEST_CASE(<span class="string">"CMAESLogisticRegressionFMatTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">  LogisticRegressionFunctionTest&lt;arma::fmat&gt;(cmaes, <span class="number">0.01</span>, <span class="number">0.02</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line">TEST_CASE(<span class="string">"ApproxCMAESLogisticRegressionFMatTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">ApproxCMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">  LogisticRegressionFunctionTest&lt;arma::fmat&gt;(cmaes, <span class="number">0.01</span>, <span class="number">0.02</span>, <span class="number">5</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>In my plan, multiple test cases including test function suits, a real data optimization test, will be added. (Notes: if the timeline is not allowed then the implementation order will be described as below)</p>
+<ol>
+<li>
+<p>Common function tests for CMA-ES</p>
+<p>The most adopted test suit for CMA-ES family is series of unimodal functions which can be separable (Sphere, Ellipsoid) or low conditioning (Rosenbrock) or high conditioning (Discus, Cigar and Different Powers). In ensmallen, only sphere and Rosenbrock functions are implemented (in ensmallen/include/ensmallen_bits/problems), however, there is no test case for CMA-ES with them. Notes that in <a href="https://dl.acm.org/doi/pdf/10.5555/3157096.3157138" target="_blank" rel="noopener">CMA-ES with Optimal Covariance Update and Storage Complexity (acm.org)</a>, the initial points get from $[0,1]$ excepts the sphere gets from $\mathcal{N}(0,1)$ therefore I will set the bound to be $[-1,1]$.</p>
+<p>$$<br>
+\begin{array}{ll}\hline \text { Name } &amp; f(\boldsymbol{x}) \\hline \text { Sphere } &amp; |\boldsymbol{x}|^{2} \\text { Rosenbrock } &amp; \sum_{i=0}^{d-1}\left(100\left(x_{i+1}-x_{i}^{2}\right)^{2}+\left(1-x_{i}\right)^{2}\right) \\text { Discus } &amp; x_{0}^{2}+\sum_{i=1}^{d} 10^{-6} x_{i}^{2} \\text { Cigar } &amp; 10^{-6} x_{0}^{2}+\sum_{i=1}^{d} x_{i}^{2} \\text { Ellipsoid } &amp; \sum_{i=0}^{d} 10^{\frac{-6 i}{d-1}} x_{i}^{2} \\text { Different Powers } &amp; \sum_{i=0}^{d}\left|x_{i}\right|^{\frac{2+10 i}{d-1}} \\hline\end{array}<br>
+$$</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">TEST_CASE(<span class="string">"CMAESSphereFunctionTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">  FunctionTest&lt;SphereFunction, arma::sp_mat&gt;(s, <span class="number">0.03</span>, <span class="number">0.003</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST_CASE(<span class="string">"CMAESRosenbrockTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">10</span>; i &lt; <span class="number">50</span>; i += <span class="number">5</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="function">GeneralizedRosenbrockFunction <span class="title">f</span><span class="params">(i)</span></span>;</span><br><span class="line">    <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">    arma::mat coordinates = f.GetInitialPoint();</span><br><span class="line">    <span class="keyword">double</span> objectives = s.Optimize(f, coordinates);</span><br><span class="line"></span><br><span class="line">    REQUIRE(objectives == Approx(<span class="number">0.0</span>).margin(<span class="number">1e-4</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> j = <span class="number">0</span>; j &lt; i; ++j)</span><br><span class="line">      REQUIRE(coordinates(j) == Approx(<span class="number">1.0</span>).epsilon(<span class="number">1e-4</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">TEST_CASE(<span class="string">"CMAESSDiscusFunctionTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">	<span class="comment">//Original CMA-ES achieves approximately 10e-1 Discus</span></span><br><span class="line">  FunctionTest&lt;DiscusFunction, arma::sp_mat&gt;(s, <span class="number">0.01</span>, <span class="number">0.003</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">TEST_CASE(<span class="string">"CMAESSCigarFunctionTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">CMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">32</span>, <span class="number">200</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">	<span class="comment">//Original CMA-ES achieves medianly approximately 10e-3</span></span><br><span class="line">  FunctionTest&lt;DiscusFunction, arma::sp_mat&gt;(s, <span class="number">0.0001</span>, <span class="number">0.00001</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//... Ellipsoid and different powers functions test case.</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>Here is to-do list for common function tests:
+
+- [ ]  Implementing Discus, Cigar, Ellipsoid and Different Powers in “ensmallen/include/ensmallen_bits/problems”
+- [ ]  Implementing test cases for each function and tolerant threshold.
+</code></pre>
+<ol start="2">
+<li>
+<p>Multi-modal test suit</p>
+<p>Real-world application functions are mostly multi-modal preventing simple optimization algorithm to work well. In a multi-modal benchmarking paper for CMA-ES by Nikolaus Hansen [8], a series of multi-modal tests have been proposed. However, due to the number and the complexity of these functions, I will only be implementing below functions. In ensmallen test functions, Ackley and Rastrigin functions are implemented.</p>
+<p>$$<br>
+\begin{array}{ll}\hline \text { Name } &amp; f(\boldsymbol{x}) \\hline \text { Ackley } &amp; \begin{aligned}<br>
+20-20 &amp; \exp \left(-0.2 \sqrt{\frac{1}{n} \sum_{i=1}^{n} x_{i}^{2}}\right) \<br>
+&amp;+\mathrm{e}-\exp \left(\frac{1}{n} \sum_{i=1}^{n} \cos \left(2 \pi x_{i}\right)\right)<br>
+\end{aligned} \\text { Bohachevsky } &amp;<br>
+\sum_{i=1}^{n-1}(x_{i}^{2}+2 x_{i+1}^{2}<br>
+\left.-0.3 \cos \left(3 \pi x_{i}\right)-0.4 \cos \left(4 \pi x_{i+1}\right)+0.7\right)<br>
+\\text { Griewank } &amp; \frac{1}{4000} \sum_{i=1}^{n} x_{i}^{2}-\prod_{i=1}^{n} \cos \left(\frac{x_{i}}{\sqrt{i}}\right)+1 \\text { Rastrigin } &amp; 10 n+\sum_{i=1}^{n}\left(x_{i}^{2}-10 \cos \left(2 \pi x_{i}\right)\right)\\hline\end{array}<br>
+$$</p>
+<p>Here is to-do list for multi-modal tests</p>
+<ul>
+<li>[ ]  Implementing Bohachevsky and Griewank functions</li>
+<li>[ ]  Implementing test cases + initialization bound for them based on the paper.</li>
+</ul>
+</li>
+<li>
+<p>A real-world data test</p>
+<p>Titanic prediction using logistic regression function is quite well-known task. For this reason, I will do data formatting for the original titanic dataset to be numerical dataset. After that, I save the data into a csv file and use arma matrix load method (arma::mat load) with arma::csv_ascii features to create a logistic regression dataset, then do optimization as usual.</p>
+ <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">TEST_CASE(<span class="string">"CMAESLogisticRegressionDataTest"</span>, <span class="string">"[CMAESTest]"</span>)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="function">ApproxCMAES&lt;&gt; <span class="title">cmaes</span><span class="params">(<span class="number">0</span>, <span class="number">-10</span>, <span class="number">10</span>, <span class="number">32</span>, <span class="number">1000</span>, <span class="number">1e-3</span>)</span></span>;</span><br><span class="line">	<span class="comment">//Logistic regression only achieve approximately 70% on testset of titanic</span></span><br><span class="line">  LogisticRegressionFunctionRealTest&lt;arma::fmat&gt;(cmaes, <span class="number">0.2</span>, <span class="number">0.3</span>, <span class="number">5</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogisticRegressionFunctionRealTest</span><span class="params">(OptimizerType&amp; optimizer,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">const</span> <span class="keyword">double</span> trainAccuracyTolerance,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">const</span> <span class="keyword">double</span> testAccuracyTolerance,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">const</span> <span class="keyword">size_t</span> trials = <span class="number">1</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">  MatType data, testData;</span><br><span class="line">  arma::Row&lt;<span class="keyword">size_t</span>&gt; Prediction, testPrediction;</span><br><span class="line">	data.load(<span class="string">"data/titanic_train.csv"</span>, arma::csv_ascii);</span><br><span class="line">	testData.load(<span class="string">"data/titanic_test.csv"</span>, arma::csv_ascii);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; trials; ++i)</span><br><span class="line">  &#123;</span><br><span class="line">    ens::<span class="function">test::LogisticRegression&lt;MatType&gt; <span class="title">lr</span><span class="params">(data, prediction,</span></span></span><br><span class="line"><span class="function"><span class="params">        <span class="number">0.5</span>)</span></span>;</span><br><span class="line">    MatType coordinates = lr.GetInitialPoint();</span><br><span class="line"></span><br><span class="line">    optimizer.Optimize(lr, coordinates);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">double</span> acc = lr.ComputeAccuracy(data, Prediction, coordinates);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">double</span> testAcc = lr.ComputeAccuracy(testData, testPrediction,</span><br><span class="line">        coordinates);</span><br><span class="line">    <span class="keyword">if</span> (i != (trials - <span class="number">1</span>))</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> (acc != Approx(<span class="number">100.0</span>).epsilon(trainAccuracyTolerance))</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      <span class="keyword">if</span> (testAcc != Approx(<span class="number">100.0</span>).epsilon(testAccuracyTolerance))</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    REQUIRE(acc == Approx(<span class="number">100.0</span>).epsilon(trainAccuracyTolerance));</span><br><span class="line">    REQUIRE(testAcc == Approx(<span class="number">100.0</span>).epsilon(testAccuracyTolerance));</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="26-documentation">2.6 Documentation</h2>
+<p>Despite of the decent quality documentation of CMA-ES “<a href="https://ensmallen.org/docs.html#cmaes%E2%80%9D" target="_blank" rel="noopener">https://ensmallen.org/docs.html#cmaes”</a>, the current CMA-ES implementation (comment for important lines of code) is lack of comments on the size of parameters matrix, mathematical formula. The implementation should be equipped with theoretical source and minor modifications from the original source (if any). Furthermore, I plan to create a tutorial (the format and the structure might take reference from <a href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html" target="_blank" rel="noopener">PyTorch tutorial</a>) on how to use CMA-ES optimizer for <strong>Application to Feedback Control of Combustion</strong> [9].</p>
+<h1 id="3-timeline">3 Timeline</h1>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Start/End Time</th>
+<th>Duration</th>
+<th>Detailed Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Community Bonding</td>
+<td>May 20 - June 12</td>
+<td>3 weeks</td>
+<td>- Communicating with mentors.</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Find out similar improvement of CMA-ES, which can easily integrated with my proposed API.</li>
+<li>Redesign the API to fit more derived CMA-ES.</li>
+<li>Drafting out how algorithm can be implemented using only arma and std.</li>
+<li>Contribute to mlpack source code. |<br>
+| Pre-Coding-Period | June 13-June 19 | 1 week | - Checking with mentors again how API should be like.</li>
+<li>Starting communicate with mentors more frequently.</li>
+<li>Clarify on previous implemented CMA-ES. |<br>
+| Coding | June 20 - July 3 | 2 weeks | - Decide how many and which improvements should be included into cmaes folder.</li>
+<li>Design API to fit with all improvements.</li>
+<li>Broke down the pass parameters, code the overall API and header files of each modules, algorithms. |<br>
+|  | July 4 - July 17 | 2 weeks | - Done with implementing all improvements.</li>
+<li>Checking with mentors is all implementation fine. |<br>
+|  | July 18 - July 31 | 2 weeks | - Starts to integrate whole folder into ensmallen library.</li>
+<li>config the cmake, and build, see is there any error.</li>
+<li>Writing sanity tests and basic tests.</li>
+<li>Benchmarking with other implemented CMA-ES performance on basic functions. |<br>
+|  | August 1 - August 14 | 2 weeks | - Writing documentation and try to first large merge.</li>
+<li>Hearing the feedbacks and check errors. |<br>
+|  | August 15 - August 28 | 2 weeks | - Write more sophisticated tests and visualization of performance |<br>
+|  | August 29 - September 11 | 2 weeks | - Reserved time for any delay time from above</li>
+<li>Get consults from mentors and finish everything.  |</li>
+</ul>
+<h2 id="references">References</h2>
+<p>[1] <em>Improving evolution strategies through active covariance matrix adaptation</em>. IEEE Xplore. (n.d.). Retrieved April 19, 2022, from <a href="https://ieeexplore.ieee.org/document/1688662" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/1688662</a></p>
+<p>[2] <em>Convergence of evolutionary algorithms in general search spaces</em>. IEEE Xplore. (n.d.). Retrieved April 19, 2022, from <a href="https://ieeexplore.ieee.org/document/542332" target="_blank" rel="noopener">https://ieeexplore.ieee.org/document/542332</a></p>
+<p>[3] Hansen, N. (2016, April 4). <em>The CMA evolution strategy: A tutorial</em>. <a href="http://arXiv.org" target="_blank" rel="noopener">arXiv.org</a>. Retrieved April 19, 2022, from <a href="https://arxiv.org/abs/1604.00772" target="_blank" rel="noopener">https://arxiv.org/abs/1604.00772</a></p>
+<p>[4] <em>Benchmarking a weighted negative … - école polytechnique</em>. (n.d.). Retrieved April 19, 2022, from <a href="http://www.cmap.polytechnique.fr/~nikolaus.hansen/ws1p33-hansen.pdf" target="_blank" rel="noopener">http://www.cmap.polytechnique.fr/~nikolaus.hansen/ws1p33-hansen.pdf</a></p>
+<p>[5] <em>A restart CMA Evolution Strategy … - école polytechnique</em>. (n.d.). Retrieved April 19, 2022, from <a href="http://www.cmap.polytechnique.fr/~nikolaus.hansen/cec2005ipopcmaes.pdf" target="_blank" rel="noopener">http://www.cmap.polytechnique.fr/~nikolaus.hansen/cec2005ipopcmaes.pdf</a></p>
+<p>[6] <em>A simple modification in CMA-ES achieving linear … - inria</em>. (n.d.). Retrieved April 19, 2022, from <a href="https://hal.inria.fr/inria-00287367/document" target="_blank" rel="noopener">https://hal.inria.fr/inria-00287367/document</a></p>
+<p>[7] <em>CMA-ES with optimal covariance update and … - <a href="http://papers.nips.cc" target="_blank" rel="noopener">papers.nips.cc</a></em>. (n.d.). Retrieved April 19, 2022, from <a href="https://papers.nips.cc/paper/2016/file/289dff07669d7a23de0ef88d2f7129e7-Paper.pdf" target="_blank" rel="noopener">https://papers.nips.cc/paper/2016/file/289dff07669d7a23de0ef88d2f7129e7-Paper.pdf</a></p>
+<p>[8] Evaluating the CMA Evolution Strategy on Multimodal Test Functions  Retrieved April 19, 2022, from <a href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.2888&amp;rep=rep1&amp;type=pdf" target="_blank" rel="noopener">https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.2888&amp;rep=rep1&amp;type=pdf</a></p>
+<p>[9] <a href="https://ieeexplore.ieee.org/document/4634579" target="_blank" rel="noopener">A Method for Handling Uncertainty in Evolutionary Optimization With an Application to Feedback Control of Combustion | IEEE Journals &amp; Magazine | IEEE Xplore</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/My-First-node-on-SQL/" data-toggle="tooltip" data-placement="top" title="My First node on SQL">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                
+
+                <br>
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                
+
+                
+
+                
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#google-summer-of-code"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Google Summer Of Code</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#organizations-mlpack"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Organizations: MLpack</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#proposal-ideas"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Proposal ideas:</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#objectives"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Objectives:</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#table-of-contents"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Table of contents:</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#1-about-me"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">1 About Me</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#11-the-student"><span class="toc-nav-number">6.1.</span> <span class="toc-nav-text">1.1 The student</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#12-the-institute"><span class="toc-nav-number">6.2.</span> <span class="toc-nav-text">1.2 The Institute</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#13-programming-experience-and-mathematical-background"><span class="toc-nav-number">6.3.</span> <span class="toc-nav-text">1.3 Programming Experience and Mathematical Background</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#2-about-project"><span class="toc-nav-number">7.</span> <span class="toc-nav-text">2 About Project</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#21-reason"><span class="toc-nav-number">7.1.</span> <span class="toc-nav-text">2.1 Reason</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#22-summary-of-mca-es-algorithm-and-changes-to-original-algorithm-recent-years"><span class="toc-nav-number">7.2.</span> <span class="toc-nav-text">2.2 Summary of MCA-ES algorithm and changes to original algorithm recent years</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#221-the-mean-of-selection-parents"><span class="toc-nav-number">7.2.1.</span> <span class="toc-nav-text">2.2.1 The mean of selection parents</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#222-the-adaptive-covariance-matrix"><span class="toc-nav-number">7.2.2.</span> <span class="toc-nav-text">2.2.2 The adaptive covariance matrix</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#update-process-after-realized-the-value-of-y_i"><span class="toc-nav-number">7.2.3.</span> <span class="toc-nav-text">Update process: After realized the value of $y_i$</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#23-cma-es-enhancements"><span class="toc-nav-number">7.3.</span> <span class="toc-nav-text">2.3 CMA-ES enhancements</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#231-active-cma-es"><span class="toc-nav-number">7.3.1.</span> <span class="toc-nav-text">2.3.1 Active-CMA-ES</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#232-ipop-cma-es"><span class="toc-nav-number">7.3.2.</span> <span class="toc-nav-text">2.3.2 IPOP-CMA-ES</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#233-sep-cma-es"><span class="toc-nav-number">7.3.3.</span> <span class="toc-nav-text">2.3.3 Sep-CMA-ES</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#234-cholesky-cma-es"><span class="toc-nav-number">7.3.4.</span> <span class="toc-nav-text">2.3.4 Cholesky-CMA-ES</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#24-api-design"><span class="toc-nav-number">7.4.</span> <span class="toc-nav-text">2.4 API Design</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#25-testing-and-benchmark"><span class="toc-nav-number">7.5.</span> <span class="toc-nav-text">2.5 Testing and Benchmark</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#26-documentation"><span class="toc-nav-number">7.6.</span> <span class="toc-nav-text">2.6 Documentation</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#3-timeline"><span class="toc-nav-number">8.</span> <span class="toc-nav-text">3 Timeline</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#references"><span class="toc-nav-number">8.1.</span> <span class="toc-nav-text">References</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/johntoro1608">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JohnToro-CZAF">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/phan-nhật-hoàng-8a3892191">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; John Phan 2022 
+                    <br>
+                    Created by <a href="https://github.com/JohnToro-CZAF">JohnPhan</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    from <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=JohnToro-CZAF&repo=JohnToro-CZAF.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/particles.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+<script src="/js/particles-js.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("www.johnphancazf.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+    </script>
+<!-- Image to hack wechat -->
+<img src="www.johnphancazf.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+
+</html>
