@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Monte Carlo Markov Chain - JohnPhan | Blog
+        
+    </title>
+
+    <link rel="canonical" href="www.johnphancazf.com/article/Monte-Carlo-Markov-Chain/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/particles.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Phan Nhat Hoang-->
+<!-- Post Header -->
+<style type="text/css">
+    header.bg{
+        
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/img/article_header/article_bg.jpg')
+            /*post*/
+         ;
+        background-size: cover;
+        opacity: 4; 
+    }
+    
+</style>
+
+<header class="intro-header bg" >
+    <!-- <div class = "bg"></div> -->
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                
+                    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+                
+                
+                    <div class="post-heading">
+                        <!-- <div class="tags">
+                            
+                        </div> -->
+                        <h1>Monte Carlo Markov Chain</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Huy Phan on
+                            2022-06-26
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Computing Spirit</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+    <!-- Main Content -->
+        <!-- Modify by Phan Nhat Hoang -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-9 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="monte-carlo-markov-chain">Monte Carlo Markov Chain</h1>
+<h2 id="1-motivation">1. Motivation</h2>
+<p>Statistical inference consists in <strong>learning about what we do not observe based on what we observe</strong>.</p>
+<h3 id="11-monte-carlo-method">1.1. <strong>Monte Carlo Method</strong></h3>
+<p>In its general form, Monte Carlo estimates the following expectation:</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%5Cint_%7Bx%7D%20P%28x%29%20f(x)%20d%20x%20%26%20%5Capprox%20%5Cfrac%7B1%7D%7BS%7D%20%5Csum_%7B1%20%5Cleq%20s%20%5Cleq%20S%7D%20f%5Cleft(x%5E%7B(s)%7D%5Cright)%20%20%5Cquad%20%5Ctext%7B(Monte%20Carlo)%7D%5C%5Cx%5E%7B(s)%7D%20%26%20%5Csim%20P(x)%5Cend%7Baligned%7D%0A"></p><p>The only tricky issue is that the randomness involved is the pseudo-randomness of computer simulation, rather than randomness of real-world phenomena. Thus it is a good idea to use terminology that emphasizes the difference.</p>
+<h3 id="12-bayesian-inference">1.2. <strong>Bayesian Inference</strong></h3>
+<p>Bayes rule:</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7DP%28%5Ctheta%7CD%29%20%3D%20%5Cfrac%7BP(D%7C%5Ctheta)P(%5Ctheta)%7D%7BP(D)%7D%5C%5C%20P(%5Ctheta%7CD)%20%3D%20%5Cfrac%7BP(D%7C%5Ctheta)P(%5Ctheta)%7D%7B%5Cint_%7B%5Ctheta%7D%20P(D%7C%5Ctheta)P(%5Ctheta)%7D%20%5Cend%7Baligned%7D%5Cquad%20%5Ctext%7B(Posterior%20Distribution)%7D%0A"></p><p>The problem here is the integral in denominator, we can choose prior and likelihood distribution such that they are both conjugate. With conjugate distributions, we can come up with marginal likelihood distribution in closed form and consequently, the posterior can be computed. However, in most cases, the model is too complicated ⇒ intractable to compute the marginal likelihood in high dimensions ⇒ approximating <img src="https://math.now.sh?inline=%5Cint_%7B%5Ctheta%7D%20P%28D%7C%5Ctheta%29P(%5Ctheta)" style="display:inline-block;margin: 0;"> with Monte Carlo and <img src="https://math.now.sh?inline=%5Ctheta%5E%7B%28i%29%7D%20%5Csim%20P(%5Ctheta)" style="display:inline-block;margin: 0;">:</p>
+<p style><img src="https://math.now.sh?from=%5Cint_%7B%5Ctheta%7D%20P%28D%7C%5Ctheta%29P(%5Ctheta)%20%5Csimeq%20%5Cfrac%7B1%7D%7Bn%7D%5Csum_%7B1%5Cleq%20i%20%5Cleq%20n%7DP(D%7C%5Ctheta%5E%7B(i)%7D)%20%5Cquad%20%5Ctext%7B(Marginal%20Likelihood%20Distribution)%7D%0A"></p><p>After approximating the posterior distribution of parameters</p>
+<p>We can predict the probability of observing a new sample <img src="https://math.now.sh?inline=x'" style="display:inline-block;margin: 0;">  by marginalizing over <img src="https://math.now.sh?inline=%5Ctheta" style="display:inline-block;margin: 0;">:</p>
+<p style><img src="https://math.now.sh?from=P%5Cleft%28x%5E%7B%5Cprime%7D%20%5Cmid%20D%5Cright%29%3D%5Cint_%7B%5Ctheta%7D%20P(%5Ctheta%20%5Cmid%20D)%20P%5Cleft(x%5E%7B%5Cprime%7D%20%5Cmid%20%5Ctheta%5Cright)%20d%20%5Ctheta%20%5Cquad%20%5Ctext%7B(Posterior%20Predictive%20Distribution)%7D%0A"></p><p>This distribution can be known as marginal posterior distribution.</p>
+<p>In cases such as when the model is simple and conjugate priors are being used the posterior and the above integral can be solved analytically.</p>
+<p>Therefore, we can use Monte Carlo Method to approximate above probability by taking samples <img src="https://math.now.sh?inline=%5Ctheta%5E%7B%28i%29%7D" style="display:inline-block;margin: 0;"> from posterior distribution which is:  <img src="https://math.now.sh?inline=%5Ctheta%5E%7B%28i%29%7D%20%5Csim%20P%5Cleft(%5Ctheta%20%5Cmid%20D%20%5Cright)" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=%5Cint_%7B%5Ctheta%7D%20P%28%5Ctheta%20%5Cmid%20D%29%20P%5Cleft(x%5E%7B%5Cprime%7D%20%5Cmid%20%5Ctheta%5Cright)%20d%20%5Ctheta%20%5Csimeq%20%5Cfrac%7B1%7D%7Bn%7D%20%5Csum_%7B1%20%5Cleq%20i%20%5Cleq%20n%7D%20P%5Cleft(x%5E%7B%5Cprime%7D%20%5Cmid%20%5Ctheta%5E%7B(i)%7D%5Cright)%0A"></p><aside>
+💡 The motivation behind Markov Chain Monte Carlo methods is that they perform an intelligent search within a high dimensional space and thus Bayesian Models in high dimensions become tractable. When the number of dimensions rises they too tend to suffer the [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality): regions of higher probability tend to stretch and get lost in an increasing volume of space that contributes little to the integral. One way to address this problem could be shortening the steps of the walker, so that it doesn't continuously try to exit the highest probability region, though this way the process would be highly auto-correlated and expensive.
+</aside>
+<h3 id="13-markov-chains">1.3. <strong>Markov Chains</strong></h3>
+<p>A sequence <img src="https://math.now.sh?inline=x_1%2C%20x_2%2C%20%5Cldots" style="display:inline-block;margin: 0;">  of random elements of some set is a Markov chain if the conditional distribution of <img src="https://math.now.sh?inline=x_%7Bn%2B1%7D" style="display:inline-block;margin: 0;"> given <img src="https://math.now.sh?inline=x_1%2C%5Cldots%2C%20x_n" style="display:inline-block;margin: 0;"> depends on <img src="https://math.now.sh?inline=x_n" style="display:inline-block;margin: 0;"> only. The set in which the <img src="https://math.now.sh?inline=x_i" style="display:inline-block;margin: 0;"> take values is called the state space of the Markov chain. A Markov chain has stationary transition probabilities if the conditional distribution of <img src="https://math.now.sh?inline=x_%7Bn%2B1%7D" style="display:inline-block;margin: 0;"> given <img src="https://math.now.sh?inline=x_n" style="display:inline-block;margin: 0;"> does not depend on <img src="https://math.now.sh?inline=n" style="display:inline-block;margin: 0;">. This is the main kind of Markov chain of interest in MCMC. Some kinds of adaptive MCMC have non-stationary transition probabilities.</p>
+<p>The joint distribution of a Markov chain is determined by:</p>
+<ul>
+<li>The marginal distribution of <img src="https://math.now.sh?inline=x_1" style="display:inline-block;margin: 0;">, called the initial distribution <img src="https://math.now.sh?inline=%5Cpi%5E%7B%281%29%7D(x)" style="display:inline-block;margin: 0;"></li>
+<li>The conditional distribution <img src="https://math.now.sh?inline=P%28x_%7Bn%2B1%7D%7Cx_n%29" style="display:inline-block;margin: 0;"> called the transition probability distribution</li>
+</ul>
+<p style><img src="https://math.now.sh?from=P%28x_%7Bn%2B1%7D%7Cx_n%2C%20x_%7Bn-1%7D%2C%20%5Cldots%2Cx_1%29%20%3D%20P(x_%7Bn%2B1%7D%7Cx_n)%0A"></p><p>If we define <img src="https://math.now.sh?inline=x_i%20%5Cin%20%5COmega" style="display:inline-block;margin: 0;"> which is our state space and <img src="https://math.now.sh?inline=%5COmega" style="display:inline-block;margin: 0;"> is discrete state space + cardinality of <img src="https://math.now.sh?inline=%5COmega" style="display:inline-block;margin: 0;"> <img src="https://math.now.sh?inline=%28%7C%5COmega%7C%3DN%29" style="display:inline-block;margin: 0;"> then we can totally define transition probability distribution as stochastic transition matrix as follow</p>
+<p style><img src="https://math.now.sh?from=A%5E%7B%28n%29%7D%20%3D%20%5Cbegin%7Bpmatrix%7D%0AP(x_%7Bn%2B1%7D%3D%5COmega_1%7Cx_n%3D%5COmega_1)%20%26%20%5Cldots%20%26%20P(x_%7Bn%2B1%7D%3D%5COmega_N%7Cx_n%3D%5COmega_1)%5C%5C%0A%5Cvdots%20%26%20%5Cddots%20%20%26%20%5Cvdots%20%5C%5C%20P(x_%7Bn%2B1%7D%3D%5COmega_1%7Cx_n%3D%5COmega_N)%20%26%20%5Cldots%20%26%20P(x_%7Bn%2B1%7D%3D%5COmega_N%7Cx_n%3D%5COmega_N)%0A%5Cend%7Bpmatrix%7D%0A"></p><p>Realize that <img src="https://math.now.sh?inline=A%5E%7B%28n%29%7D_%7Bij%7D%20%3D%20P(x_%7Bn%2B1%7D%3D%5COmega_j%7Cx_n%3D%5COmega_i)" style="display:inline-block;margin: 0;"> and  <img src="https://math.now.sh?inline=%5Csum_%7Bj%3D1%7D%5E%7BN%7D%20A%5E%7B%28n%29%7D_%7Bij%7D%3D1" style="display:inline-block;margin: 0;"> for all row <img src="https://math.now.sh?inline=i%5E%7Bth%7D" style="display:inline-block;margin: 0;">.</p>
+<p>The Markov chain might have a stationary distribution <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D%28x%29" style="display:inline-block;margin: 0;">:</p>
+<p style><img src="https://math.now.sh?from=%5Cpi%5E%7B*%7D_%7Bj%7D%3D%5Clim%20_%7Bn%20%5Crightarrow%20%5Cinfty%7D%20P%5Cleft%28x_%7Bn%7D%3D%5COmega_j%20%5Cmid%20x_%7B0%7D%3D%5COmega_i%5Cright%29%0A"></p><p>Thanks to Perron-Frobenius theorem which is stated as follow:</p>
+<p><strong>Let <img src="https://math.now.sh?inline=A" style="display:inline-block;margin: 0;"> be a real matrix, with all its elements positive <img src="https://math.now.sh?inline=A_%7Bij%7D" style="display:inline-block;margin: 0;"> &gt; 0. Then the top eigenvalue <img src="https://math.now.sh?inline=%5Clambda_%7B%5Cmax%7D" style="display:inline-block;margin: 0;"> is unique and real (all other eigenvalues have a smaller real part). The corresponding top eigenvector <img src="https://math.now.sh?inline=%5Cmathbf%7Bv%7D%5E%7B*%7D" style="display:inline-block;margin: 0;"> has all its elements positive:</strong></p>
+<p><img src="https://math.now.sh?inline=**%7BA%20%5Cmathbf%20%7B%20v%20%7D%20%5E%20%7B%20*%20%7D%7D%3D%5Clambda_%7B%5Cmax%20%7D%20%5Cmathbf%7Bv%7D%5E%7B*%7D%20%3B%20%20%5Cmathbf%7Bv%7D_%7Bk%7D%5E%7B*%7D%3E0%2C%20%5Cforall%20k" style="display:inline-block;margin: 0;"> then the top eigenvalue satisfies the following inequalities:**</p>
+<p style><img src="https://math.now.sh?from=%5Cmin%20_%7Bi%7D%20%5Csum_%7Bj%7D%20A_%7Bi%20j%7D%20%5Cleq%20%5Clambda_%7B%5Cmax%20%7D%20%5Cleq%20%5Cmax%20_%7Bi%7D%20%5Csum_%7Bj%7D%20A_%7Bi%20j%7D%20.%0A"></p><p>The transition matrix has eigen-value of 1 which can help us to find stationary probability distribution of Markov states <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D%28x%29" style="display:inline-block;margin: 0;">. Specifically, If <img src="https://math.now.sh?inline=A%5E%7B%28n%29%7D" style="display:inline-block;margin: 0;">  is a stochastic matrix of the Markov chain, we must have <img src="https://math.now.sh?inline=%5Csum_%7Bj%3D1%7D%5E%7BN%7D%20A%5E%7B%28n%29%7D_%7Bij%7D%3D1" style="display:inline-block;margin: 0;"> which makes <img src="https://math.now.sh?inline=%5Clambda_%7B%5Cmax%7D%3D1" style="display:inline-block;margin: 0;">. Then let’s <img src="https://math.now.sh?inline=P%5E%7B*%7D_j%20%3D%20P%5E%7B*%7D%28x%3D%5COmega_j%29%20%3D%20%5Cmathbf%7Bv%7D%5E%7B*%7D_j" style="display:inline-block;margin: 0;"> which is our stationary distribution:</p>
+<p style><img src="https://math.now.sh?from=P_%7Bj%7D%5E%7B*%7D%3D%5Csum_%7Bi%7D%20A_%7Bi%20j%7D%20P_%7Bi%7D%5E%7B*%7D%20%5Clongrightarrow%20P_%7Bj%7D%5E%7B*%7D%3D%5Cfrac%7B%5Cmathbf%7Bv%7D_%7Bj%7D%5E%7B*%7D%7D%7B%5Csum_%7Bk%7D%20%5Cmathbf%7Bv%7D_%7Bk%7D%5E%7B*%7D%7D%0A"></p><p>or with <img src="https://math.now.sh?inline=%5Cpi%5E%7B%28k%29%7D(x)%20%3D%20%5Cpi%5E%7B(0)%7D(x)A%5E%7B(k)%7D" style="display:inline-block;margin: 0;"></p>
+<p>In order to generalize the definition transition operator we denotes:</p>
+<p style><img src="https://math.now.sh?from=T_n%28x_n%5Crightarrow%20x_%7Bn%2B1%7D%29%20%3D%20P(x_%7Bn%2B1%7D%7Cx_n)%0A"></p><p>In MCMC, the Markov chain is usually a homogeneous Markov Chain which has transition functions are the same for all <img src="https://math.now.sh?inline=n" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=T%28x'%20%5Crightarrow%20x%29%20%3D%20T_n(x_n%5Crightarrow%20x_%7Bn%2B1%7D)%20%3D%20T_%7Bn%2B1%7D(x_%7Bn%2B1%7D%5Crightarrow%20x_%7Bn%2B2%7D)%0A"></p><p>If we use the transition operator, the definition of stationary (invariant) distribution becomes:</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%5Cpi%28x%29%3D%5Csum_%7Bx%5E%7B%5Cprime%7D%7D%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20T%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%20%5Cend%7Bequation%7D%0A"></p><h3 id="14-properties-of-markov-chains">1.4. Properties of Markov Chains</h3>
+<p>To engineer a Markov chain we need some useful asymptotic properties of Markov chain</p>
+<aside>
+💡 States of Markov chain have three cases: transient, null persistent and non-null persistent.
+</aside>
+<p>Definition of irreducible Markov chain:</p>
+<p>We say that a Markov chain is irreducible if, for each <img src="https://math.now.sh?inline=i" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=j" style="display:inline-block;margin: 0;">, there exists a <img src="https://math.now.sh?inline=k" style="display:inline-block;margin: 0;"> (possibly depends on <img src="https://math.now.sh?inline=i" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=j" style="display:inline-block;margin: 0;">) such that:</p>
+<p style><img src="https://math.now.sh?from=P%28x_%7Bn%2Bk%7D%3D%5COmega_i%5Cmid%20x_%7Bn%7D%3D%5COmega_j%29%20%3E%200%20%5Cquad%20%5Ctext%7Bfor%20finite%20k%7D%0A"></p><p>verbally, a chain is irreducible if it is possible to eventually get from any state <img src="https://math.now.sh?inline=i" style="display:inline-block;margin: 0;"> to any other state <img src="https://math.now.sh?inline=j" style="display:inline-block;margin: 0;"> in finite number of steps.</p>
+<p>Definition of aperiodic Markov chain:</p>
+<p>An irreducible Markov chain is called aperiodic if its period is equal to 1, or equivalently</p>
+<p style><img src="https://math.now.sh?from=%5Cgcd%28%5Cmathcal%7BT%7D(x%29)%20%3D%5Cgcd(%5Cleft%5C%7Bt%20%5Cgeq%201%3A%20P(x_%7Bn%2Bt%7D%3D%5COmega_i%2C%20x_n%3D%5COmega_i)%3E0%5Cright%5C%7D)%20%3D%201%0A"></p><p><em><strong>Theorem:</strong></em> All states of an irreducible MC are of the same type with regard to persistence (recurrence) and periodicity [5]</p>
+<p><em><strong>Theorem:</strong></em> Irreducible Markov chain has at least one non-null persistent <img src="https://math.now.sh?inline=%5CLeftrightarrow" style="display:inline-block;margin: 0;"> Markov chain has a (unique) stationary distribution <img src="https://math.now.sh?inline=%5Cpi%28x%29" style="display:inline-block;margin: 0;"> [7,8,9]</p>
+<p><em><strong>Theorem:</strong></em> A finite (at least one state is non-null persistent [9]), irreducible Markov chain has a unique stationary distribution <img src="https://math.now.sh?inline=%5Cpi%28x%29" style="display:inline-block;margin: 0;"> [4]</p>
+<p><em><strong>Theorem:</strong></em> A finite, irreducible, aperiodic Markov chain has limiting distribution equals unique stationary distribution <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D%28x%29%3D%5Cpi(x)" style="display:inline-block;margin: 0;"> [6]</p>
+<p><em><strong>Theorem:</strong></em> A non-null persistent, irreducible, aperiodic Markov chain has limiting distribution equals unique stationary distribution <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D%28x%29%20%3D%20%5Cpi(x)" style="display:inline-block;margin: 0;"></p>
+<h2 id="2-how-to-sampling">2. How To Sampling?</h2>
+<p>Since the only problem here is how to do sampling <img src="https://math.now.sh?inline=%5Ctheta%5E%7B%28i%29%7D%20%5Csim%20P(%5Ctheta)" style="display:inline-block;margin: 0;"> or  <img src="https://math.now.sh?inline=%5Ctheta%5E%7B%28i%29%7D%20%5Csim%20P%5Cleft(%5Ctheta%20%5Cmid%20D%20%5Cright)" style="display:inline-block;margin: 0;">. There are some standard methods and other intelligent, efficient methods.</p>
+<h3 id="21-inverse-transform-the-uniform-sampling">2.1. Inverse Transform the Uniform Sampling</h3>
+<p>Inverse transform sampling is straightforward method of generating random samples from any distribution by using its inverse cumulative distribution function (ICDF) <img src="https://math.now.sh?inline=F%5E%7B-1%7D%28x%29" style="display:inline-block;margin: 0;">. Easy to note that</p>
+<p style><img src="https://math.now.sh?from=F_%7BX%7D%28x%29%20%3D%20P(X%5Cleq%20x)%20%5Cin%20%5B0%2C1%5D%20%5Cquad%20%0A"></p><p><img src="Monte%20Carlo%20Markov%20Chain%20b6e7f1d0122e4e75affc748b0ee863b3/Untitled.png" alt="Source: https://en.wikipedia.org/wiki/Inverse_transform_sampling"></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Inverse_transform_sampling" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Inverse_transform_sampling</a></p>
+<p>By sampling uniform distributed random variable <img src="https://math.now.sh?inline=U" style="display:inline-block;margin: 0;">as a value of cumulative distribution function and inverse back that value, we can get the desired sample <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;">. Here is the proof that inverse uniform random variable will have the same CDF with desired distribution. Let’s <img src="https://math.now.sh?inline=U%20%5Csim%20%5Ctext%7BUniform%7D%280%2C1%29" style="display:inline-block;margin: 0;">, <img src="https://math.now.sh?inline=F%5E%7B-1%7D%28u%29%20%3D%20%5Cinf%5C%7Bx%20%7C%20F(x)%20%5Cgeq%20u%5C%7D" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=P%28U%5Cleq%20u%29%20%3D%20u" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%26P%5Cleft%28F%5E%7B-1%7D(U%29%20%5Cleq%20x%5Cright)%20%5C%5C%26%3DP(U%20%5Cleq%20F(x))%20%5C%5C%26%3DF(x)%5Cend%7Baligned%7D%0A"></p><p>The intuition behind Inverse Transform Sampling is simple: re-scale the a uniform random variable to have probability that we want.</p>
+<h3 id="22-acceptance-rejection-sampling">2.2. Acceptance-Rejection Sampling</h3>
+<p>Rejection sampling used a proxy proposal distribution <img src="https://math.now.sh?inline=G" style="display:inline-block;margin: 0;"> with density function of <img src="https://math.now.sh?inline=g%28x%29" style="display:inline-block;margin: 0;"> to generate samples <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;"> and with an acceptance-rejection criterion to filter out unwanted sample to get new sample with distribution as our desired distribution <img src="https://math.now.sh?inline=F" style="display:inline-block;margin: 0;"> with density function of <img src="https://math.now.sh?inline=f%28x%29" style="display:inline-block;margin: 0;">. This algorithms is described as follows:</p>
+<ol>
+<li>Sample an observation <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;"> from <img src="https://math.now.sh?inline=G" style="display:inline-block;margin: 0;"> and an uniform distributed sample <img src="https://math.now.sh?inline=u%20%5Csim%20%5Ctext%7BUniform%7D%5Cleft%280%2C1%5Cright%29" style="display:inline-block;margin: 0;"></li>
+<li>Check whether <img src="https://math.now.sh?inline=u%20%5Cleq%20%5Cfrac%7Bf%28x%29%7D%7Bcg(x)%7D" style="display:inline-block;margin: 0;">. If the it’s true than accept this sample as our sample for distribution <img src="https://math.now.sh?inline=F" style="display:inline-block;margin: 0;">, else, reject it and return back to step 1.</li>
+</ol>
+<p>The algorithm will take average <img src="https://math.now.sh?inline=c" style="display:inline-block;margin: 0;"> iterations to get one sample for <img src="https://math.now.sh?inline=F" style="display:inline-block;margin: 0;"></p>
+<p><strong>Proof</strong></p>
+<p>We need to show that conditioned probability <img src="https://math.now.sh?inline=P%5Cleft%28X%5Cleq%20x%20%5Cmid%20U%20%5Cleq%20%5Cfrac%7Bf(X%29%7D%7Bcg(X)%7D%5Cright)%20%3D%20F(x)" style="display:inline-block;margin: 0;">. Firstly we compute reverse conditional probability</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%5Cbegin%7Baligned%7D%0AP%5Cleft%28U%20%5Cleq%20%5Cfrac%7Bf(X%29%7D%7Bc%20g(X)%7D%20%5Cmid%20X%20%5Cleq%20x%5Cright)%20%26%3D%5Cfrac%7BP%5Cleft(U%20%5Cleq%20%5Cfrac%7Bf(X)%7D%7Bc%20g(X)%7D%2C%20X%20%5Cleq%20x%5Cright)%7D%7BG(x)%7D%20%5C%5C%0A%26%3D%5Cint_%7B-%5Cinfty%7D%5E%7Bx%7D%20%5Cfrac%7BP%5Cleft(U%20%5Cleq%20%5Cfrac%7Bf(x)%7D%7Bc%20g(x)%7D%20%5Cmid%20X%3Dw%20%5Cleq%20x%5Cright)%7D%7BG(x)%7D%20g(w)%20d%20w%20%5C%5C%0A%26%3D%5Cfrac%7B1%7D%7BG(x)%7D%20%5Cint_%7B-%5Cinfty%7D%5E%7Bx%7D%20%5Cfrac%7Bf(w)%7D%7Bc%20g(w)%7D%20g(w)%20d%20w%20%5C%5C%0A%26%3D%5Cfrac%7B1%7D%7Bc%20G(x)%7D%20%5Cint_%7B-%5Cinfty%7D%5E%7By%7D%20f(w)%20d%20w%20%5C%5C%0A%26%3D%5Cfrac%7BF(x)%7D%7Bc%20G(x)%7D%20%0A%5Cend%7Baligned%7D%5Cend%7Bequation%7D%0A"></p><p>Using Bayes theorem with the fact that <img src="https://math.now.sh?inline=P%5Cleft%28U%20%5Cleq%20%5Cfrac%7Bf(X%29%7D%7Bc%20g(X)%7D%5Cright)%20%3D%20%5Cint_%7Bx%7D%20P%5Cleft(U%5Cleq%20%5Cfrac%7Bf(x)%7D%7Bcg(x)%7D%5Cmid%20X%3Dx%5Cright)%20dx%20%3D%20%5Cint_%7Bx%7D%20%5Cfrac%7Bf(x)%7D%7Bcg(x)%7D%20%5Ctimes%20g(x)%20dx%20%3D%20%5Cfrac%7B1%7D%7Bc%7D%20%5Cint_%7Bx%7D%20f(x)dx%20%3D%20%5Cfrac%7B1%7D%7Bc%7D" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=P%5Cleft%28X%5Cleq%20x%20%5Cmid%20U%20%5Cleq%20%5Cfrac%7Bf(X%29%7D%7Bcg(X)%7D%5Cright)%20%20%3D%20%5Cfrac%7BP%5Cleft(U%20%5Cleq%20%5Cfrac%7Bf(X)%7D%7Bc%20g(X)%7D%20%5Cmid%20X%20%5Cleq%20x%5Cright)P(X%5Cleq%20x)%7D%7BP%5Cleft(U%20%5Cleq%20%5Cfrac%7Bf(X)%7D%7Bc%20g(X)%7D%5Cright)%7D%20%3D%20%5Cfrac%7B%5Cfrac%7BF(x)%7D%7Bc%20G(x)%7D%20%5Ctimes%20G(x)%7D%7B%5Cfrac%7B1%7D%7Bc%7D%7D%20%3D%20F(x)%20%5Cquad%20%5Cblacksquare%0A"></p><h3 id="23-markov-chain-monte-carlo">2.3. Markov Chain Monte Carlo</h3>
+<aside>
+💡 Designing general purpose transition operators that can have any distribution of interest be their stationary distribution is key to MCMC [1]. They then only needed to simulate the Markov chain until stationarity was achieved.
+</aside>
+<p>We need a Markov chain to have the following conditions:</p>
+<ol>
+<li>Having the desired sampling distribution as Markov chain’s stationary distribution <img src="https://math.now.sh?inline=P%28x%29%20%3D%20%5Cpi(x)" style="display:inline-block;margin: 0;">. The first condition can be solved by constraining the transition operator on a condition called as <em><strong>detailed balance condition</strong></em></li>
+<li>With any starting point, we can achieve the stationary distribution and visit all possible states. <em><strong>This condition can be known as Ergodicity.</strong></em></li>
+</ol>
+<p>These conditions guarantee that realizations of a single Markov chain to approximate the integrals without sampling from actual distribution <img src="https://math.now.sh?inline=P%28x%29" style="display:inline-block;margin: 0;">. These conditions are proved by the following fundamental theorem</p>
+<p><strong>Fundamental Theorem To Design with Known Invariant Distribution <img src="https://math.now.sh?inline=%5Cpi%28x%29" style="display:inline-block;margin: 0;"> [1]</strong></p>
+<p>If a homogeneous Markov chain on a finite state space with transition operator <img src="https://math.now.sh?inline=T" style="display:inline-block;margin: 0;"> has <img src="https://math.now.sh?inline=%5Cpi" style="display:inline-block;margin: 0;"> as an invariant distribution and</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%5Cnu%3D%5Cmin%20_%7Bx%7D%20%5Cmin%20_%7Bx%5E%7B%5Cprime%7D%3A%20%5Cpi%5Cleft%28x%5E%7B%5Cprime%7D%5Cright%29%3E0%7D%20T%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20%2F%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%3E0%5Cend%7Bequation%7D%0A"></p><p>then Markov chain is <strong>ergodic</strong>,</p>
+<ol>
+<li>
+<p>if <img src="https://math.now.sh?inline=f%28x%29" style="display:inline-block;margin: 0;"> is a real-valued function from the state space of the Markov chain, then the expectation of <img src="https://math.now.sh?inline=f" style="display:inline-block;margin: 0;"> with respect<br>
+to the distribution <img src="https://math.now.sh?inline=P%5E%7B%28n%29%7D(x)" style="display:inline-block;margin: 0;"> written as <img src="https://math.now.sh?inline=%5Cmathbb%7BE%7D_%7Bn%7D%5Bf%5D%3A%3D%5Csum_%7Bx%7D%20f%28x%29%20P%5E%7B(n)%7D(x)" style="display:inline-block;margin: 0;"> , converges to its expectation with respect to <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D" style="display:inline-block;margin: 0;">, written <img src="https://math.now.sh?inline=%5Cmathbb%7BE%7D%5Bf%5D%3A%3D%5Csum_%7Bx%7D%20f%28x%29%20%5Cpi%5E%7B*%7D(x)" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=%5Clim%20_%7Bn%20%5Crightarrow%20%5Cinfty%7D%20%5Cmathbb%7BE%7D_%7Bn%7D%5Bf%5D%3D%5Cmathbb%7BE%7D%5Bf%5D%20%5Cquad%20%5Ctext%7B%28Irreducible%29%7D%0A"></p></li>
+<li>
+<p>For all <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;">, regardless of the initial distribution <img src="https://math.now.sh?inline=P%5E%7B%281%29%7D(x)" style="display:inline-block;margin: 0;">, we got limiting distribution is our unique invariant distribution</p>
+<p style><img src="https://math.now.sh?from=%5Clim%20_%7Bn%20%5Crightarrow%20%5Cinfty%7D%20P%5E%7B%28n%29%7D(x)%3D%5Cpi(x)%20%5Cquad%20%5Ctext%7B(Aperiodic)%7D%0A"></p></li>
+</ol>
+<hr>
+<p>The detailed balance condition is stated as follow: a transition operator <img src="https://math.now.sh?inline=T" style="display:inline-block;margin: 0;"> satisfies the detailed balance condition if there exists a distribution <img src="https://math.now.sh?inline=%5Cpi%28x%29" style="display:inline-block;margin: 0;"> such that (and, unique <img src="https://math.now.sh?inline=%5Cpi%28x%29" style="display:inline-block;margin: 0;"> is our stationary distribution <img src="https://math.now.sh?inline=%5Cpi%5E%7B*%7D%28x%29" style="display:inline-block;margin: 0;">)</p>
+<p style><img src="https://math.now.sh?from=%5Cpi%28x%29%20T%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%3D%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20T%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%0A"></p><p>Therefore, we only need to find the transition operator <img src="https://math.now.sh?inline=T" style="display:inline-block;margin: 0;"> satisfies</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7DP%28x%29%20T%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%3DP%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20T%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%5Cend%7Bequation%7D%0A"></p><p>Remember this is our sufficient condition to design desired distribution to be stationary distribution since if the Markov stationary distribution is not unique one and stationary distribution is not limiting distribution, then detailed balance condition can not be useful. Fortunately, the ergodicity implies homogeneous Markov chain has unique stationary distribution (irreducible) and it’s also our limiting distribution (aperiodic).</p>
+<aside>
+💡 The condition (2) is quite strong since it can imply we have positive persistent (non-null persistent) and not have null persistent which makes it applicable in infinite state space $\Omega$
+</aside>
+<h3 id="24-metropolis-hastings-algorithm">2.4. Metropolis-Hastings Algorithm</h3>
+<p>Let <img src="https://math.now.sh?inline=P%28x%29" style="display:inline-block;margin: 0;"> is our desired distribution to sample from. We wish to have <img src="https://math.now.sh?inline=P%28x%29" style="display:inline-block;margin: 0;">  as our stationary distribution in MCMC. A proposal distribution will random walk point <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;">  to other point <img src="https://math.now.sh?inline=x'" style="display:inline-block;margin: 0;"> with probability of <img src="https://math.now.sh?inline=q%28x'%7Cx%29" style="display:inline-block;margin: 0;"> then Metropolis-Hastings algorithm will accept the new sample point if that point yields high unnormalized term <img src="https://math.now.sh?inline=%5Cpropto%20P%28x%29" style="display:inline-block;margin: 0;">.<br>
+<strong>Metropolis-Hastings:</strong></p>
+<ol>
+<li>Sample <img src="https://math.now.sh?inline=x%5E%7B%280%29%7D" style="display:inline-block;margin: 0;"> from an arbitrary probability distribution</li>
+<li>for <img src="https://math.now.sh?inline=n%20%3D%201%2C2%2C%20%5Cldots%2C%20N" style="display:inline-block;margin: 0;"> do
+<ol>
+<li>Propose a random walk <img src="https://math.now.sh?inline=x'%20%5Csim%20q%28x'%7Cx%5E%7B(n%29%7D)%20%3D%20q(x%5E%7B(n)%7D%5Crightarrow%20x')" style="display:inline-block;margin: 0;"></li>
+<li>Acceptance rate of new point <img src="https://math.now.sh?inline=x'" style="display:inline-block;margin: 0;">  is <img src="https://math.now.sh?inline=a%20%3D%20A%28x%5E%7B(n%29%7D%5Crightarrow%20x')%20%3D%20%5Cmin%20%5Cleft(%201%2C%20%5Cfrac%7BP(x')q(x'%5Crightarrow%20x%5E%7B(n)%7D)%7D%7BP(x%5E%7B(n)%7D)q(x%5E%7B(n)%7D%5Crightarrow%20x')%7D%5Cright)" style="display:inline-block;margin: 0;"></li>
+<li>Sample <img src="https://math.now.sh?inline=u%20%5Csim%20%5Ctext%7BUniform%7D%280%2C1%29" style="display:inline-block;margin: 0;"></li>
+<li>If <img src="https://math.now.sh?inline=u%20%5Cleq%20a" style="display:inline-block;margin: 0;"> then assign new sample point by a random walk point <img src="https://math.now.sh?inline=x%5E%7B%28n%2B1%29%7D%20%3D%20x'" style="display:inline-block;margin: 0;"> else remains the old point <img src="https://math.now.sh?inline=x%5E%7B%28n%2B1%29%7D%20%3D%20x%5E%7B(n)%7D" style="display:inline-block;margin: 0;"></li>
+</ol>
+</li>
+<li>Collect <img src="https://math.now.sh?inline=N" style="display:inline-block;margin: 0;"> points <img src="https://math.now.sh?inline=x%5E%7B%28n%29%7D" style="display:inline-block;margin: 0;">  to create a <img src="https://math.now.sh?inline=N-%5Ctext%7Bsample%7D" style="display:inline-block;margin: 0;">  of the distribution <img src="https://math.now.sh?inline=P%28x%29" style="display:inline-block;margin: 0;"></li>
+</ol>
+<p>We now replace <img src="https://math.now.sh?inline=x%5E%7B%28n%29%7D" style="display:inline-block;margin: 0;"> with <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;"> for easy manipulation with general original point. Notes that with the term <img src="https://math.now.sh?inline=%5Cmin%20%5Cleft%28%201%2C%20%5Cfrac%7BP(x'%29q(x'%5Crightarrow%20x)%7D%7BP(x)q(x%5Crightarrow%20x')%7D%5Cright)" style="display:inline-block;margin: 0;">, we do not necessarily compute exactly the density which is computationally intractable in the first place, therefore we replace it with unnormalized term without any difference due to the cancel between numerator and denumerator</p>
+<p><img src="https://math.now.sh?inline=P%28x%29%20%3D%20Z_p%20%5Ctilde%7BP%7D(x)" style="display:inline-block;margin: 0;">.</p>
+<p style><img src="https://math.now.sh?from=A%20%28x%5Crightarrow%20x'%29%20%3D%20%5Cmin%20%5Cleft(%201%2C%20%5Cfrac%7BP(x')q(x'%5Crightarrow%20x)%7D%7BP(x)q(x%5Crightarrow%20x')%7D%5Cright)%20%3D%20%5Cmin%20%5Cleft(1%2C%20%5Cfrac%7BZ_p%5Ctilde%7BP%7D(x')q(x'%5Crightarrow%20x)%7D%7BZ_p%5Ctilde%7BP%7D(x)q(x%5Crightarrow%20x')%7D%20%5Cright)%20%3D%20%5Cmin%20%5Cleft(%201%2C%20%5Cfrac%7B%5Ctilde%7BP%7D(x')q(x'%5Crightarrow%20x)%7D%7B%5Ctilde%7BP%7D(x)q(x%5Crightarrow%20x')%7D%5Cright)%20%0A"></p><p>We will prove that Metropolis-Hastings satisfies ergodicity conditions and detailed balance condition with desired probability <img src="https://math.now.sh?inline=P%28x%29" style="display:inline-block;margin: 0;">  is our stationary distribution. Firstly, the transition function of Metropolis-Hastings is</p>
+<p style><img src="https://math.now.sh?from=T%5Cleft%28x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright%29%3D%20%5Cbegin%7Bcases%7Dq%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20A%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20%26%20%5Ctext%20%7B%20if%20%7D%20x%20%5Cneq%20x%5E%7B%5Cprime%7D%20%5C%5C%20q(x%20%5Crightarrow%20x)%2B%5Csum_%7Bx%5E%7B%5Cprime%7D%2C%20x%5E%7B%5Cprime%7D%20%5Cneq%20x%7D%20q%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%5Cleft(1-A%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%5Cright)%20%26%20%5Ctext%20%7B%20if%20%7D%20x%3Dx%5E%7B%5Cprime%7D%5Cend%7Bcases%7D%0A"></p><p>Since with the case of <img src="https://math.now.sh?inline=x%20%3D%20x'" style="display:inline-block;margin: 0;"> , there are two possible cases which are the proposal probability give new point equals exactly <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;"> with <img src="https://math.now.sh?inline=q%28x%5Crightarrow%20x%29" style="display:inline-block;margin: 0;">  and <img src="https://math.now.sh?inline=a%20%3D%201" style="display:inline-block;margin: 0;">. Meanwhile, the proposal distribution give new point that is different from the original one <img src="https://math.now.sh?inline=q%28x%5Crightarrow%20x'%29" style="display:inline-block;margin: 0;">  but is rejected with probability of <img src="https://math.now.sh?inline=1-A%5Cleft%28x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright%29" style="display:inline-block;margin: 0;">. For <img src="https://math.now.sh?inline=x'%20%5Cneq%20x" style="display:inline-block;margin: 0;"> we have</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%0AP%28x%29%20T%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20%26%3DP(x)%20q%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20%5Cmin%20%5Cleft(1%2C%20%5Cfrac%7BP%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20q%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%7D%7BP(x)%20q%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%7D%5Cright)%20%5C%5C%0A%26%3D%5Cmin%20%5Cleft(P(x)%20q%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%2C%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20q%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%5Cright)%20%5C%5C%0A%26%3DP%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20q%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%20%5Cmin%20%5Cleft(1%2C%20%5Cfrac%7BP(x)%20q%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%7D%7BP%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20q%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%7D%5Cright)%20%5C%5C%0A%26%3DP%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20T%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5Cright)%0A%5Cend%7Baligned%7D%0A"></p><p>For <img src="https://math.now.sh?inline=x%3Dx'" style="display:inline-block;margin: 0;">, we only need to prove <img src="https://math.now.sh?inline=T%28x%5Crightarrow%20x%29%20%3D%20T(x%5Crightarrow%20x)" style="display:inline-block;margin: 0;"> which is obvious.</p>
+<p>This property of Metropolis-Hastings aligned with (3), a detailed balance condition. Using theorem (2) with stationary distribution <img src="https://math.now.sh?inline=%5Cpi%28x%29%20%3D%20P(x)" style="display:inline-block;margin: 0;"> , we have</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%5Cnu%26%3D%5Cmin%20_%7Bx%7D%20%5Cmin%20_%7Bx%5E%7B%5Cprime%7D%3A%20%5Cpi%5Cleft%28x%5E%7B%5Cprime%7D%5Cright%29%3E0%7D%20T%5Cleft(x%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%20%2F%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%20%5C%5C%20%26%3D%5Cmin%20_%7Bx%7D%20%5Cmin%20_%7Bx%5E%7B%5Cprime%7D%3A%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%3E0%7D%20%5Cfrac%7Bq(x%5Crightarrow%20x')%5Cmin%20%5Cleft(%201%2C%20%5Cfrac%7BP(x')q(x'%5Crightarrow%20x)%7D%7BP(x)q(x%5Crightarrow%20x')%7D%5Cright)%7D%7BP(x')%7D%20%20%5C%5C%20%26%3D%20%5Cmin%20_%7Bx%7D%20%5Cmin%20_%7Bx%5E%7B%5Cprime%7D%3A%20%5Cpi%5Cleft(x%5E%7B%5Cprime%7D%5Cright)%3E0%7D%20%5Cmin%20%5Cleft(%5Cfrac%7Bq(x%5Crightarrow%20x')%7D%7BP(x')%7D%2C%20%5Cfrac%7Bq(x'%5Crightarrow%20x)%7D%7BP(x)%7D%20%5Cright)%20%3E0%20%20%5Cend%7Baligned%7D%0A"></p><p>due to the proposal density is always greater than <img src="https://math.now.sh?inline=0" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=P%28x%29%20%5Cneq%200" style="display:inline-block;margin: 0;"> with all sampling point <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;">. Indeed, assume <img src="https://math.now.sh?inline=x%5E%7B%28i%29%7D" style="display:inline-block;margin: 0;"> is the first <img src="https://math.now.sh?inline=x" style="display:inline-block;margin: 0;">  such that <img src="https://math.now.sh?inline=P%28x%29%20%3D%200" style="display:inline-block;margin: 0;"> or <img src="https://math.now.sh?inline=P%28x%5E%7B(i%29%7D)%3D0" style="display:inline-block;margin: 0;">, then there’s a proposal point <img src="https://math.now.sh?inline=x'%3Dx%5E%7B%28i%29%7D" style="display:inline-block;margin: 0;"> is accepted with <img src="https://math.now.sh?inline=a%3D%20%5Cmin%20%5Cleft%281%2C%20%20%5Cfrac%7BP%5Cleft(x%5E%7B%5Cprime%7D%5Cright%29%20q%5Cleft(x%5E%7B%5Cprime%7D%20%5Crightarrow%20x%5E%7B(i)%7D%5Cright)%7D%7BP(x%5E%7B(i)%7D)%20q%5Cleft(x%5E%7B(i)%7D%20%5Crightarrow%20x%5E%7B%5Cprime%7D%5Cright)%7D%20%5Cright)%20%3D%200" style="display:inline-block;margin: 0;"> meaning <img src="https://math.now.sh?inline=x'" style="display:inline-block;margin: 0;"> can not be accepted.</p>
+<h2 id="3-references">3. References</h2>
+<p>[1] <a href="https://www.robots.ox.ac.uk/~fwood/teaching/C19_hilary_2015_2016/mcmc.pdf" target="_blank" rel="noopener">https://www.robots.ox.ac.uk/~fwood/teaching/C19_hilary_2015_2016/mcmc.pdf</a></p>
+<p>[2] <a href="https://stats.stackexchange.com/questions/66945/does-a-mcmc-fulfilling-detailed-balance-yields-a-stationary-distribution" target="_blank" rel="noopener">https://stats.stackexchange.com/questions/66945/does-a-mcmc-fulfilling-detailed-balance-yields-a-stationary-distribution</a></p>
+<p>[3] <a href="https://www.youtube.com/watch?v=ZjrJpkD3o1w" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ZjrJpkD3o1w</a></p>
+<p>[4] <a href="http://faculty.washington.edu/harin/markovchain_proofs.pdf" target="_blank" rel="noopener">http://faculty.washington.edu/harin/markovchain_proofs.pdf</a></p>
+<p>[5] <a href="https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf" target="_blank" rel="noopener">https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf</a></p>
+<p>[6] <a href="https://www.probabilitycourse.com/chapter11/11_2_6_stationary_and_limiting_distributions.php" target="_blank" rel="noopener">https://www.probabilitycourse.com/chapter11/11_2_6_stationary_and_limiting_distributions.php</a></p>
+<p>[7] <a href="http://www.columbia.edu/~ks20/stochastic-I/stochastic-I-MCII.pdf" target="_blank" rel="noopener">http://www.columbia.edu/~ks20/stochastic-I/stochastic-I-MCII.pdf</a></p>
+<p>[8] <a href="https://www.commit.tu-berlin.de/fileadmin/fg302/FSP-markov-chains-smaple.pdf" target="_blank" rel="noopener">https://www.commit.tu-berlin.de/fileadmin/fg302/FSP-markov-chains-smaple.pdf</a></p>
+<p>[9] <a href="https://bookdown.org/jkang37/stochastic-process-lecture-notes/lecture09.html" target="_blank" rel="noopener">https://bookdown.org/jkang37/stochastic-process-lecture-notes/lecture09.html</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Google-Summer-of-Code-Proposal/" data-toggle="tooltip" data-placement="top" title="Google Summer of Code Proposal">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                
+
+                <br>
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                
+
+                
+
+                
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#monte-carlo-markov-chain"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Monte Carlo Markov Chain</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-motivation"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1. Motivation</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#11-monte-carlo-method"><span class="toc-nav-number">1.1.1.</span> <span class="toc-nav-text">1.1. Monte Carlo Method</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#12-bayesian-inference"><span class="toc-nav-number">1.1.2.</span> <span class="toc-nav-text">1.2. Bayesian Inference</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#13-markov-chains"><span class="toc-nav-number">1.1.3.</span> <span class="toc-nav-text">1.3. Markov Chains</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#14-properties-of-markov-chains"><span class="toc-nav-number">1.1.4.</span> <span class="toc-nav-text">1.4. Properties of Markov Chains</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-how-to-sampling"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">2. How To Sampling?</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#21-inverse-transform-the-uniform-sampling"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">2.1. Inverse Transform the Uniform Sampling</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#22-acceptance-rejection-sampling"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">2.2. Acceptance-Rejection Sampling</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#23-markov-chain-monte-carlo"><span class="toc-nav-number">1.2.3.</span> <span class="toc-nav-text">2.3. Markov Chain Monte Carlo</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#24-metropolis-hastings-algorithm"><span class="toc-nav-number">1.2.4.</span> <span class="toc-nav-text">2.4. Metropolis-Hastings Algorithm</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-references"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">3. References</span></a></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/johntoro1608">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JohnToro-CZAF">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/phan-nhật-hoàng-8a3892191">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; John Phan 2022 
+                    <br>
+                    Created by <a href="https://github.com/JohnToro-CZAF">JohnPhan</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    from <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=JohnToro-CZAF&repo=JohnToro-CZAF.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/particles.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+<script src="/js/particles-js.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("www.johnphancazf.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+    </script>
+<!-- Image to hack wechat -->
+<img src="www.johnphancazf.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='themes/huweihuang/source/js/math_jax.js' async></script>
+</body>
+
+</html>
