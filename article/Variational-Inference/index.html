@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Variational Inference - JohnPhan | Blog
+        
+    </title>
+
+    <link rel="canonical" href="www.johnphancazf.com/article/Variational-Inference/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/particles.css">
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Phan Nhat Hoang-->
+<!-- Post Header -->
+<style type="text/css">
+    header.bg{
+        
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/img/article_header/vi_diagram.png')
+            /*post*/
+         ;
+        background-size: cover;
+        opacity: 4; 
+    }
+    
+</style>
+
+<header class="intro-header bg" >
+    <!-- <div class = "bg"></div> -->
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                
+                    <div class="col-lg-8 col-lg-offset-1 col-md-10 col-md-offset-1">
+                
+                
+                    <div class="post-heading">
+                        <!-- <div class="tags">
+                            
+                        </div> -->
+                        <h1>Variational Inference</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by John Phan on
+                            2022-07-10
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Computing Spirit</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+    <!-- Main Content -->
+        <!-- Modify by Phan Nhat Hoang -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-9 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1 id="variational-inference">Variational Inference</h1>
+<h2 id="1-motivation">1. Motivation</h2>
+<p><strong>Approximate Bayesian computation</strong> (<strong>ABC</strong>) constitutes a class of <a href="https://en.wikipedia.org/wiki/Computational_science" target="_blank" rel="noopener">computational methods</a> rooted in <a href="https://en.wikipedia.org/wiki/Bayesian_statistics" target="_blank" rel="noopener">Bayesian statistics</a> that can be used to estimate the posterior distributions of model parameters.</p>
+<p>In all model-based <a href="https://en.wikipedia.org/wiki/Statistical_inference" target="_blank" rel="noopener">statistical inference</a>, the <a href="https://en.wikipedia.org/wiki/Likelihood" target="_blank" rel="noopener">likelihood function</a> is of central importance, since it expresses the probability of the observed data under a particular <a href="https://en.wikipedia.org/wiki/Statistical_model" target="_blank" rel="noopener">statistical model</a>, and thus quantifies the support data lend to particular values of parameters and to choices among different models.</p>
+<ol>
+<li>
+<p>For simple models, an analytical formula for the likelihood function can typically be derived.</p>
+<p>In <a href="https://en.wikipedia.org/wiki/Statistics" target="_blank" rel="noopener">statistics</a>, <strong>Markov chain Monte Carlo</strong> (<strong>MCMC</strong>) methods comprise a class of <a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">algorithms</a><br>
+for sampling from a <a href="https://en.wikipedia.org/wiki/Probability_distribution" target="_blank" rel="noopener">probability distribution</a>, By constructing a <a href="https://en.wikipedia.org/wiki/Markov_chain" target="_blank" rel="noopener">Markov chain</a> that has the desired distribution as its <a href="https://en.wikipedia.org/wiki/Markov_chain#Steady-state_analysis_and_limiting_distributions" target="_blank" rel="noopener">equilibrium distribution</a>, one can obtain a sample of the desired distribution by recording states from the chain.</p>
+</li>
+<li>
+<p>However, for more complex models, an analytical formula might be elusive or the likelihood function might be computationally very costly to evaluate. The variational inference with the idea of optimizing alternative distribution <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"> to the true distribution has greatly contributed into solving this hard problem.</p>
+</li>
+</ol>
+<h2 id="2-variational-inference">2. Variational Inference</h2>
+<p><img src="Untitled.png" alt="Source: https://gregorygundersen.com/blog/2021/04/16/variational-inference/"></p>
+<p>Source: <a href="https://gregorygundersen.com/blog/2021/04/16/variational-inference/" target="_blank" rel="noopener">https://gregorygundersen.com/blog/2021/04/16/variational-inference/</a></p>
+<h3 id="21-basic-theory">2.1. Basic Theory</h3>
+<p>Before introduce the problem and variational inference as solution to that problem, we present some common concepts of information theory</p>
+<p><strong>Kullback-Leibler divergence</strong></p>
+<p><img src="Untitled%201.png" alt="Source: https://en.wikipedia.org/wiki/Kullback–Leibler_divergence#/media/File:KL-Gauss-Example.png"></p>
+<p>Source: <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence#/media/File:KL-Gauss-Example.png" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Kullback–Leibler_divergence#/media/File:KL-Gauss-Example.png</a></p>
+<p>The KL-divergence, also known as the relative entropy, between two probability distribution density. Considering two distributions <img src="https://math.now.sh?inline=P" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=Q" style="display:inline-block;margin: 0;"> having two densities <img src="https://math.now.sh?inline=p%28x%29" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=q%28x%29" style="display:inline-block;margin: 0;">, normally, <img src="https://math.now.sh?inline=P" style="display:inline-block;margin: 0;"> presents data or observations and <img src="https://math.now.sh?inline=Q" style="display:inline-block;margin: 0;">  represents a hypothesis or model of data. It is commonly used as a measure of similarity between densities.</p>
+<p style><img src="https://math.now.sh?from=KL%5Cleft%28p%20%5Cmiddle%20%5C%7C%20q%5Cright%29%20%3D%20%5Cint_x%20p(x)%5Clog%7B%5Cfrac%7Bp(x)%7D%7Bq(x)%7D%7Ddx%20%3D%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%7B%5Cfrac%7Bp(x)%7D%7Bq(x)%7D%7D%5Cright%5D%0A"></p><p>In information theory, it can be interpreted as excess number of bits that using optimized code for samples from distribution <img src="https://math.now.sh?inline=Q" style="display:inline-block;margin: 0;"> to encode samples from distribution <img src="https://math.now.sh?inline=P" style="display:inline-block;margin: 0;">. This can be done due to the fact that entropy as average number of bits to encode samples of distribution and cross-entropy represents expected number of bits that using code from <img src="https://math.now.sh?inline=Q" style="display:inline-block;margin: 0;"> to encode <img src="https://math.now.sh?inline=P" style="display:inline-block;margin: 0;">.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7DKL%5Cleft%28p%5Cmiddle%20%5C%7Cq%20%20%5Cright%29%20%3D%20H(p%2Cq)-H(p)%5C%5CH(p)%3DE_%7Bx%5Csim%20p(x)%7D%5Cleft%5B-%5Clog%20p(x)%5Cright%5D%5C%5CH(p%2Cq)%20%3D%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%20-%5Clog%7Bq(x)%7D%5Cright%5D%20%5Cend%7Baligned%7D%0A"></p><p>Since we use the codebook from <img src="https://math.now.sh?inline=Q" style="display:inline-block;margin: 0;"> to encode <img src="https://math.now.sh?inline=P" style="display:inline-block;margin: 0;">, cross-entropy will be larger its entropy</p>
+<p style><img src="https://math.now.sh?from=H%28p%2Cq%29%20%5Cgeq%20H(p)%0A"></p><p>For this reason we also have KL-divergence is non-negative</p>
+<p style><img src="https://math.now.sh?from=KL%5Cleft%28p%20%5Cmiddle%20%5C%7C%20q%5Cright%29%20%5Cgeq%200%20%5Cquad%20%5Cforall%20P%2CQ%20%0A"></p><p>To prove that KL-divergence acts like a distance between two distributions, we might need convex property of KL-divergence. With 2 arbitrary densities <img src="https://math.now.sh?inline=p%28x%29" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=q%28x%29" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=r%28x%29" style="display:inline-block;margin: 0;">  becomes convex combination of these densities</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7Dr%28x%29%20%3D%20%5Clambda%20p(x)%20%2B%20(1-%5Clambda)q(x)%20%5C%5C%20%5Cend%7Baligned%7D%0A"></p><p>By increasing <img src="https://math.now.sh?inline=%5Clambda" style="display:inline-block;margin: 0;"> we can make <img src="https://math.now.sh?inline=r%28x%29%20%5Crightarrow%20p(x)" style="display:inline-block;margin: 0;"> and we also have convex property of KL-divergence</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7DKL%28p(x%29%2C%20r(x))%20%26%5Cleq%20(1-%5Clambda)KL(p(x)%2C%20q(x))%20%2B%20%5Clambda%20KL(p(x)%2Cp(x))%20%5C%5C%26%3D%20(1-%5Clambda)KL(p(x)%2Cq(x))%20%5Cend%7Baligned%7D%0A"></p><p>Indeed, we have the proof with the fact that <img src="https://math.now.sh?inline=%5Clog%28x%29" style="display:inline-block;margin: 0;"> is a concave function.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%20KL%28p(x%29%2C%20r(x))%20%26%3D%20KL(p(x)%2C%20%5Clambda%20p(x)%20%2B%20(1-%5Clambda)q(x))%20%5C%5C%20%26%3DE_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%20%5Clog%7B%5Cfrac%7Bp(x)%7D%7B%5Clambda%20p(x)%20%2B%20(1-%5Clambda)%20q(x)%7D%7D%20%5Cright%5D%20%5C%5C%20%26%3D%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%7Bp(x)%7D%5Cright%5D%20-%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog(%5Clambda%20p(x)%20%2B%20(1-%5Clambda)q(x))%5Cright%5D%20%5C%5C%20%26%5Cleq%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%20p(x)%5Cright%5D%20-%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clambda%20%5Clog%7Bp(x)%7D%20%2B%20(1-%5Clambda)%5Clog%7Bq(x)%7D%5Cright%5D%20%5C%5C%20%26%3D%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%7Bp(x)%7D%5Cright%5D%20-%20%5Clambda%20E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%7Bp(x)%7D%5Cright%5D%20-%20(1-%5Clambda)E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%20q(x)%5Cright%5D%20%5C%5C%20%26%20%3D%20(1-%5Clambda)E_%7Bx%5Csim%20p(x)%7D%5Cleft%5B%5Clog%20p(x)%20-%20%5Clog%20q(x)%20%5Cright%5D%20%5C%5C%20%26%3D%20(1-%5Clambda)E_%7Bx%5Csim%20p(x)%7D%20%5Cleft%5B%5Clog%7B%5Cfrac%7Bp(x)%7D%7Bq(x)%7D%7D%20%5Cright%5D%20%3D%20(1-%5Clambda)KL(p(x)%2Cq(x))%20%5Cend%7Baligned%7D%0A"></p><p>KL-divergence is also asymmetric:</p>
+<p style><img src="https://math.now.sh?from=KL%28p(x%29%2Cq(x))%20%5Cneq%20KL(q(x)%2Cp(x))%0A"></p><p>An important property of KL-divergence it only equals to 0 if and only if our <img src="https://math.now.sh?inline=q%28x%29%20%3D%20p(x)" style="display:inline-block;margin: 0;">.</p>
+<p style><img src="https://math.now.sh?from=KL%28p(x%29%2Cq(x))%20%3D%200%20%5CLeftrightarrow%20p(x)%3Dq(x)%0A"></p><p>Recall Bayesian inference in MCMC post, we calculate posterior distribution of parameters <img src="https://math.now.sh?inline=%5Ctheta" style="display:inline-block;margin: 0;"> after updating the data <img src="https://math.now.sh?inline=D" style="display:inline-block;margin: 0;"> with Bayes theorem <img src="https://math.now.sh?inline=P%28%5Ctheta%20%5Cmid%20D%29%20%3D%20%5Cfrac%7BP(D%20%7C%20%5Ctheta)P(%5Ctheta)%7D%7BP(D)%7D" style="display:inline-block;margin: 0;">. In this context, we replace <img src="https://math.now.sh?inline=%5Ctheta" style="display:inline-block;margin: 0;"> and <img src="https://math.now.sh?inline=D" style="display:inline-block;margin: 0;"> with latent variable governing the data distribution <img src="https://math.now.sh?inline=%5Cmathbf%7Bz%7D" style="display:inline-block;margin: 0;"> and observations variable <img src="https://math.now.sh?inline=%5Cmathbf%7Bx%7D" style="display:inline-block;margin: 0;">. We have the formula</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7Dp%28%5Cmathbf%7Bz%7D%5Cmid%20%5Cmathbf%7Bx%7D%29%20%3D%20%5Cfrac%7Bp(%5Cmathbf%7Bz%7D)p(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%7B%5Cint_%7B%5Cmathbf%7Bz%7D%7D%7Bp(%5Cmathbf%7Bz%7D)p(%5Cmathbf%7Bx%7D%5Cmid%20%5Cmathbf%7Bz%7D)d%20%5Cmathbf%7Bz%7D%7D%7D%5Cend%7Bequation%7D%0A"></p><p>Since <img src="https://math.now.sh?inline=%5Cint_z%7Bp%28%5Cmathbf%7Bz%7D%29p(%5Cmathbf%7Bx%7D%5Cmid%20%5Cmathbf%7Bz%7D)%7D" style="display:inline-block;margin: 0;"> is intractable to compute, posterior distribution is also hard to evaluate. Meanwhile, MCMC use samples from Markov Chain to estimate the exact posterior, variational inference choose optimization direction.</p>
+<aside>
+💡 The main idea behind variational inference is to use optimization rather than sampling. First, we propose a family of approximate densities known as $\mathcal{Q}$. This is a set of latent variable densities. Then we try to find the member $q(z)$  of that family with the smallest Kullback-Leibler (KL) divergence from the exact posterior. VI casts the Bayesian Inference into optimization problem in probability densities space.
+</aside>
+<p>In general, the VI aims to solve minimization problem</p>
+<p style><img src="https://math.now.sh?from=q%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29%3D%5Cunderset%7Bq(%5Cmathbf%7Bz%7D)%20%5Cin%20%5Cmathcal%7BQ%7D%7D%7B%5Carg%20%5Cmin%20%7D%5Chspace%7B%201mm%7DKL(q(%5Cmathbf%7Bz%7D)%20%5C%7C%20p(%5Cmathbf%7Bz%7D%20%5Cmid%20%5Cmathbf%7Bx%7D))%0A"></p><p><img src="https://math.now.sh?inline=q%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;">  becomes our final approximation of posterior distribution <img src="https://math.now.sh?inline=p%28%5Cmathbf%7Bz%7D%5Cmid%20%5Cmathbf%7Bx%7D%29" style="display:inline-block;margin: 0;">. So the question is why don’t we use the forward KL-divergence <img src="https://math.now.sh?inline=KL%28p(%5Cmathbf%7Bz%7D%20%5Cmid%20x%29%20%5C%7C%20q(%5Cmathbf%7Bz%7D))" style="display:inline-block;margin: 0;">? The answer is forward KL is intractable to compute since it’s related with expectation over posterior distribution which is our desired to compute in the first place. Using reverse KL has its own drawbacks, this will be discussed more in section 2.2. Despite of avoiding expectation over posterior distribution, the reverse KL is still intractable, to be clear, we have following derivation</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7DKL%28q(%5Cmathbf%7Bz%7D%29%2C%20p(%5Cmathbf%7Bz%7D%5Cmid%20%5Cmathbf%7Bx%7D)%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(%5Cmathbf%7Bz%7D)%7D%20%5Cleft%5B%20%5Clog%7B%5Cfrac%7Bq(%5Cmathbf%7Bz%7D)%7D%7Bp(%5Cmathbf%7Bz%7D%5Cmid%20%5Cmathbf%7Bx%7D)%7D%7D%20%20%5Cright%5D%20%5C%5C%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(%5Cmathbf%7Bz%7D)%7D%20%5Cleft%5B%20%5Clog%7B%5Cfrac%7Bq(%5Cmathbf%7Bz%7D)%7D%7B%5Cfrac%7Bp(%5Cmathbf%7Bz%7D%2C%20%5Cmathbf%7Bx%7D)%7D%7Bp(%5Cmathbf%7Bx%7D)%7D%7D%7D%20%20%5Cright%5D%5C%5C%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D%20%2B%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D)%7D%20%5Cright%5D%20%5C%5C%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D%20%2B%20%5Cunderbrace%7B%5Clog%7Bp(%5Cmathbf%7Bx%7D)%7D%7D_%7B%5Ctext%7Bevidence%7D%7D%5Cend%7Baligned%7D%0A"></p><p>The term <img src="https://math.now.sh?inline=%5Clog%7Bp%28x%29%7D" style="display:inline-block;margin: 0;"> is called as evidence and it requires us to compute the denominator in (1) since <img src="https://math.now.sh?inline=%5Clog%7Bp%28%5Cmathbf%7Bx%7D%29%7D%20%3D%20%5Clog%7B%5Cint_%7B%5Cmathbf%7Bz%7D%7D%20%7Bp(%5Cmathbf%7Bx%7D%5Cmid%20%5Cmathbf%7Bz%7D)p(%5Cmathbf%7Bz%7D)d%5Cmathbf%7Bz%7D%7D%7D" style="display:inline-block;margin: 0;">. Fortunately, we are only considering <img src="https://math.now.sh?inline=%5Cmathbf%7Bz%7D" style="display:inline-block;margin: 0;"> as optimized variable, <img src="https://math.now.sh?inline=%5Clog%7Bp%28%5Cmathbf%7Bx%7D%29%7D" style="display:inline-block;margin: 0;"> is a constant. Alternative function to be optimized is proposed, it called <strong>ELBO.</strong></p>
+<p><strong>Evidence Lower Bound (ELBO)</strong></p>
+<p>Evidence lower bound is a function of <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"> so that optimizing <img src="https://math.now.sh?inline=KL%28q(%5Cmathbf%7Bz%7D%29%2C%20p(%5Cmathbf%7Bz%7D%5Cmid%20%5Cmathbf%7Bx%7D))" style="display:inline-block;margin: 0;"> is equivalent with optimizing ELBO. Specifically, we will maximize ELBO.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7DELBO%28q(%5Cmathbf%7Bz%7D%29)%0A%20%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%0A%5Cend%7Bequation%7D%0A"></p><p>Remember that, <img src="https://math.now.sh?inline=q%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"> only models the latent variable <img src="https://math.now.sh?inline=%5Cmathbf%7Bz%7D" style="display:inline-block;margin: 0;"> and not with the data. However, maximization process has already been incorporated with data information <img src="https://math.now.sh?inline=%5Cmathbf%7Bx%7D" style="display:inline-block;margin: 0;"> by introduce the log likelihood function into ELBO.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7DELBO%28q(%5Cmathbf%7Bz%7D%29)%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20%2B%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5Bp(%5Cmathbf%7Bz%7D)%5Cright%5D%20-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5Bq(%5Cmathbf%7Bz%7D)%5Cright%5D%20%5C%5C%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20KL%5Cleft(q(%5Cmathbf%7Bz%7D)%2Cp(%5Cmathbf%7Bz%7D)%5Cright)%0A%5Cend%7Baligned%7D%0A"></p><p>ELBO has its name due to the fact that <img src="https://math.now.sh?inline=ELBO%28q(x%29)%20%5Cleq%20%5Clog%7Bp(x)%7D" style="display:inline-block;margin: 0;"> since <img src="https://math.now.sh?inline=KL%28p(x%29%2Cq(x))%20%5Cgeq%200" style="display:inline-block;margin: 0;">.</p>
+<p>Finally this is the ultimate objective of Variational Inference, finding optimal <img src="https://math.now.sh?inline=q%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"> to estimate posterior distribution.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7Dq%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29%3D%5Carg%5Cmax_%7Bq(%5Cmathbf%7Bz%7D)%5Csim%20%5Cmathcal%7BQ%7D%7D%20%5Chspace%7B0.5mm%7DE_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%5Cend%7Bequation%7D%0A"></p><h3 id="22-properties-of-variational-inference">2.2. Properties of Variational Inference</h3>
+<p>Suppose <img src="https://math.now.sh?inline=p%28x%29" style="display:inline-block;margin: 0;"> is true underlying distribution of data and <img src="https://math.now.sh?inline=q%28x%29" style="display:inline-block;margin: 0;"> is our model. Without lose of generalization, <img src="https://math.now.sh?inline=p%28x%29" style="display:inline-block;margin: 0;"> is a constant function and optimization process will refine <img src="https://math.now.sh?inline=q%28x%29" style="display:inline-block;margin: 0;">  into the form of <img src="https://math.now.sh?inline=q%28x%29" style="display:inline-block;margin: 0;">. Recall that KL-divergence is asymmetric, optimizing forward KL-divergence <img src="https://math.now.sh?inline=KL%28p(x%29%2Cq(x))" style="display:inline-block;margin: 0;"> will derive another optimal density function comparing with reverse KL-divergence <img src="https://math.now.sh?inline=KL%28q(x%29%2Cp(x))" style="display:inline-block;margin: 0;">. Specifically, reverse KL-divergence will give an underestimation of true distribution of data and focus more on mode-seeking behavior. This can be reasoned intuitively by this figure.</p>
+<p><img src="Untitled%202.png" alt="Source Tim Vieira's blog, figure by John Winn."></p>
+<p>Source <a href="https://timvieira.github.io/blog/post/2014/10/06/kl-divergence-as-an-objective-function" target="_blank" rel="noopener">Tim Vieira’s blog</a>, figure by <a href="http://www.johnwinn.org/" target="_blank" rel="noopener">John Winn</a>.</p>
+<h3 id="23-mean-field-variational-inference">2.3. Mean-field Variational Inference</h3>
+<p>We now introduce a popular variational family <img src="https://math.now.sh?inline=%5Cmathcal%7BQ%7D" style="display:inline-block;margin: 0;"> called mean-field variational family, where latent variables are mutually independent and each has its own density function <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> with distinct external parameters governing the shape of that density function <img src="https://math.now.sh?inline=%5Cvarphi_j" style="display:inline-block;margin: 0;">. These parameters can be called global parameters or variational parameters. A member of mean-field variational family can be described in the following formula:</p>
+<p style><img src="https://math.now.sh?from=q%28%5Cmathbf%7Bz%7D%29%20%3D%20%5Cprod%5E%7Bm%7D_%7Bj%3D1%7D%20q_%7Bj%7D(z_j%3B%20%5Cvarphi_j)%20%5Cquad%20%5Ctext%7B(Mean-field%20variational%20family)%7D%0A"></p><p>Notes that we have not defined the parametric form of these densities functions since mean-field family only cares about the independence properties between latent variables and relaxes other constraints to balance the intractability and generality. With factorized assumptions, one can easily compute entropy of the approximating distribution by summation of all entropy of each latent variable distribution making it easier to alternatively optimization (will be discussed in section 2.4)</p>
+<p style><img src="https://math.now.sh?from=E_%7B%5Cmathbf%7Bz%7D%5Csim%20q%28%5Cmathbf%7Bz%7D%29%7D%5Cleft%5Bq(%5Cmathbf%7Bz%7D)%5Cright%5D%20%3D%20%5Csum%5E%7Bm%7D_%7Bj%3D1%7D%20E_%7Bz_j%20%5Csim%20q_j(z_j)%7D%5Cleft%5Bq_j(z_j)%5Cright%5D%0A"></p><p>It easier to optimize any member of mean-field variational family, however, with the cost of approximation accuracy, especially, in the case of correlations between the hidden variables are not negligible. Notes that we omitted the variational parameters <img src="https://math.now.sh?inline=%5Cvarphi_j" style="display:inline-block;margin: 0;"> to simplify the equation as well as not lose the parametric or non-parametric generality of factorized density functions.</p>
+<p><img src="Untitled%203.png" alt="Source:http://www.it.uu.se/research/systems_and_control/education/2018/pml/lectures/lecture10_2x2.pdf"></p>
+<p>Source:<a href="http://www.it.uu.se/research/systems_and_control/education/2018/pml/lectures/lecture10_2x2.pdf" target="_blank" rel="noopener">http://www.it.uu.se/research/systems_and_control/education/2018/pml/lectures/lecture10_2x2.pdf</a></p>
+<p>In the above figure, the red distribution which is created by a member of mean-field variational family, failed to capture the true distribution (in green) of the latent variables <img src="https://math.now.sh?inline=z_1%2Cz_2" style="display:inline-block;margin: 0;">.</p>
+<h3 id="24-coordinate-ascent-vi-algorithm-cavi">2.4. Coordinate Ascent VI algorithm (CAVI)</h3>
+<p>In the mean-field variational inference where the mean-field variational family <img src="https://math.now.sh?inline=%5Cmathcal%7BQ%7D" style="display:inline-block;margin: 0;"> is utilized, the most commonly used algorithm for solving the optimization problem described in equation (3) is coordinate ascent variational inference (CAVI). This algorithm is described in detail in (Bishop 2006). Like alternative optimization, CAVI iteratively optimizes each factor of the mean-field variational density <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;">, while fixing other factors. The optimization path of CAVI in the latent variables space like a step case.</p>
+<p><img src="Untitled%204.png" alt="Source:http://www.adeveloperdiary.com/data-science/machine-learning/introduction-to-coordinate-descent-using-least-squares-regression/"></p>
+<p>Source:<a href="http://www.adeveloperdiary.com/data-science/machine-learning/introduction-to-coordinate-descent-using-least-squares-regression/" target="_blank" rel="noopener">http://www.adeveloperdiary.com/data-science/machine-learning/introduction-to-coordinate-descent-using-least-squares-regression/</a></p>
+<p>The main update formula of CAVI is based on the exponentiated expected log of joint distribution of latent variables <img src="https://math.now.sh?inline=%5Cmathbf%7Bz%7D" style="display:inline-block;margin: 0;"> and observed variables <img src="https://math.now.sh?inline=%5Cmathbf%7Bx%7D" style="display:inline-block;margin: 0;">. Specifically, setting other variational factors <img src="https://math.now.sh?inline=q_i%28z_i%29%20%5Cforall%20i%5Cneq%20j" style="display:inline-block;margin: 0;">  fixed, we will allow the factorized density function of each latent variable <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> proportional with exponentiated expected log of joint distribution of latent variables <img src="https://math.now.sh?inline=%5Cmathbf%7Bz%7D" style="display:inline-block;margin: 0;"> and observed variables <img src="https://math.now.sh?inline=%5Cmathbf%7Bx%7D" style="display:inline-block;margin: 0;">.</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%20q_j%28z_j%29%5Cpropto%20%5Cexp%5C%7BE_%7B-j%7D%5Cleft%5B%5Clog%20p(z_j%2C%20z_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%5C%7D%20%5Cend%7Bequation%7D%0A"></p><p>where, <img src="https://math.now.sh?inline=-j" style="display:inline-block;margin: 0;"> denotes all other factors that have been fixed while optimizing factor <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> and denotes the object we optimizing here is density function <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> not <img src="https://math.now.sh?inline=z_j" style="display:inline-block;margin: 0;">. Later on, in the most case of parametric variational inference, we will directly optimize variational parameters <img src="https://math.now.sh?inline=%5Cvarphi_j" style="display:inline-block;margin: 0;"> such that <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> will be proportional with the quantity described in equation (4).</p>
+<p>Now we care how equation (4) can be can came up? Recall the optimization problem of VI <img src="https://math.now.sh?inline=q%5E%7B*%7D%28%5Cmathbf%7Bz%7D%29%3D%5Carg%5Cmax_%7Bq(%5Cmathbf%7Bz%7D)%5Csim%20%5Cmathcal%7BQ%7D%7D%20%5Chspace%7B0.5mm%7DE_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D" style="display:inline-block;margin: 0;">. In calculus, we mostly care about optimizing over a set of variables, now we’re dealing with optimizing over a set of functions. The tool I will use to solve this optimization problem is Calculus of Variations. This method has been developed in <img src="https://math.now.sh?inline=17%5E%7B%5Ctext%7Bth%7D%7D" style="display:inline-block;margin: 0;"> till <img src="https://math.now.sh?inline=20%5E%7B%5Ctext%7Bth%7D%7D" style="display:inline-block;margin: 0;"> century by Leonhard Euler and many other phenomenal mathematicians. This field uses variations, which are small changes in functions to find maxima and minima of functionals: mappings from a set of functions to the real numbers. In this case, functional to be maximized is <img src="https://math.now.sh?inline=%5Cmathcal%7BL%7D%5Cleft%28q(%5Cmathbf%7Bz%7D%29%20%5Cright)" style="display:inline-block;margin: 0;"> and set of functions is <img src="https://math.now.sh?inline=%5Cmathcal%7BQ%7D" style="display:inline-block;margin: 0;">.</p>
+<p style><img src="https://math.now.sh?from=%5Cmathcal%7BL%7D%5Cleft%28q(%5Cmathbf%7Bz%7D%29%20%5Cright)%20%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(%5Cmathbf%7Bz%7D)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%0A"></p><p>In the assumption of CAVI, we will fix other factors and find the optimal factor <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;"> then functional will become</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%5Cmathcal%7BL%7D%5Cleft%28q_j(%5Cmathbf%7Bz_j%7D%29%20%5Cright)%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bq(%5Cmathbf%7Bz%7D)%7D%5Cright%5D%5C%5C%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D%20-%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Csum%5Em_%7Bj%3D1%7D%20%5Clog%20q_j(z_j)%5Cright%5D%20%5Cend%7Baligned%7D%0A"></p><p>However since we are fixing <img src="https://math.now.sh?inline=q_%7B-j%7D" style="display:inline-block;margin: 0;">, then optimizing functional can be reduced to</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%5Cbegin%7Baligned%7D%5Cmathcal%7BL%7D%5Cleft%28q_j(%5Cmathbf%7Bz_j%7D%29%20%5Cright)%20%20%26%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bz%7D%2C%5Cmathbf%7Bx%7D)%7D%5Cright%5D%20-%20E_%7Bz_j%5Csim%20q_j(z_j)%7D%5Cleft%5B%5Csum%5Em_%7Bj%3D1%7D%20%5Clog%20q_j(z_j)%5Cright%5D%20%5C%5C%26%3D%20%5Cint_%7Bz_j%7D%5Cint_%5Cmathbf%7Bz_%7B-j%7D%7D%20%5Clog%20p%5Cleft(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D%5Cright)q_j(z_j)q_%7B-j%7D(%5Cmathbf%7Bz%7D_%7B-j%7D)dz_jd%5Cmathbf%7Bz%7D_%7B-j%7D%5C%5C%26%5Chspace%7B10mm%7D-%5Cint_%7Bz_%7Bj%7D%7D%20%5Clog%20q_j(z_j)%20q_j(z_j)dz_j%20%5C%5C%26%3D%20%5Cint_%7Bz_j%7D%5Cleft%5B%5Cint_%5Cmathbf%7Bz_%7B-j%7D%7D%20%5Clog%20p%5Cleft(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D%5Cright)q_%7B-j%7D(%5Cmathbf%7Bz%7D_%7B-j%7D)d%5Cmathbf%7Bz%7D_%7B-j%7D-%5Clog%20q_j(z_j)%5Cright%5D%20q_j(z_j)dz_j%5C%5C%26%3D%5Cint_%7Bz_j%7D%5Cleft%5B%20%20E_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D-%5Clog%20q_j(z_j)%20%5Cright%20%5Dq_j(z_j)dz_j%5Cend%7Baligned%7D%5Cend%7Bequation%7D%0A"></p><p>Now, calculus of derivation really interest one kind of functional that has closed form solution, and the solution is provided by equation called Euler-Lagrange equation. Considering a functional</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Bequation%7D%5Cmathcal%7BL%7D%5By%5D%3D%5Cint_%7Bx_%7B1%7D%7D%5E%7Bx_%7B2%7D%7D%20L%5Cleft%28x%2C%20y(x%29%2C%20y%5E%7B%5Cprime%7D(x)%5Cright)%20d%20x%5Cend%7Bequation%7D%0A"></p><p>By introducing a new definition of functional derivative <img src="https://math.now.sh?inline=%5Cpartial%20%5Cmathcal%7BL%5By%5D%7D%2F%5Cpartial%20y" style="display:inline-block;margin: 0;"> when we consider how much a functional <img src="https://math.now.sh?inline=%5Cmathcal%7BL%7D%5Cleft%5By%5Cright%5D" style="display:inline-block;margin: 0;"> changes when we make a small change <img src="https://math.now.sh?inline=%5Cepsilon%20%5Ceta%28x%29" style="display:inline-block;margin: 0;"> to the function <img src="https://math.now.sh?inline=y%28x%29" style="display:inline-block;margin: 0;"></p>
+<p style><img src="https://math.now.sh?from=%5Cmathcal%7BL%7D%5By%28x%29%2B%5Cepsilon%20%5Ceta(x)%5D%3D%5Cmathcal%7BL%7D%5By(x)%5D%2B%5Cepsilon%20%5Cint%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20y(x)%7D%20%5Ceta(x)%20%5Cmathrm%7Bd%7D%20x%2BO%5Cleft(%5Cepsilon%5E%7B2%7D%5Cright)%0A"></p><p>We can prove that with functional having the form in (6) (see more in Bishop 2006 [1] or my upcoming blog about calculus of variations and its applications in engineering)</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%26%5Cint_%7Bx_%7B1%7D%7D%5E%7Bx_%7B2%7D%7D%20%5Ceta%28x%29%5Cleft(%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%7D-%5Cfrac%7Bd%7D%7Bd%20x%7D%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%5E%7B%5Cprime%7D%7D%5Cright)%20dx%3D0%20%5C%5C%20%26%5CRightarrow%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%7D-%5Cfrac%7Bd%7D%7Bd%20x%7D%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%5E%7B%5Cprime%7D%7D%3D0%20%5Cend%7Baligned%7D%0A"></p><p>Using this fact we can plug into equation (5) to solve for <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;">. Indeed, we have</p>
+<p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%26%5Cfrac%7B%5Cpartial%20%5Cleft%28E_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D%29%5Cright%5D-%20%5Clog%20q_j(z_j)%5Cright)q_j(z_j)%7D%7B%5Cpartial%20q_j(z_j)%7D%20-%20%5Cfrac%7Bd%200%7D%7Bdz_j%7D%20%3D%200%20%5C%5C%26%20%5CRightarrow%20E_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%20-%20%5Clog%20q_j(z_j)%2B1%3D0%20%5C%5C%26%20%5CRightarrow%20q_j(z_j)%20%5Cpropto%20%5Cexp%5C%7BE_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%5C%7D%20%20%5Cend%7Baligned%7D%0A"></p><p>In summary, we got final algorithm of coordinate ascent variational inference [2]</p>
+<ol>
+<li>
+<p>While the ELBO has not converged do</p>
+<pre><code>   for $j \in \{1, \dots, m\}$ do
+
+   Set $q_j(z_j) \propto \exp\{E_{-j}\left[ \log p(z_j, \mathbf{z}_{-j}, \mathbf{x})\right]\}$ 
+</code></pre>
+<p>end</p>
+<p>Compute <img src="https://math.now.sh?inline=ELBO%28q(%5Cmathbf%7Bz%7D%29)%20%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20KL%5Cleft(q(%5Cmathbf%7Bz%7D)%2Cp(%5Cmathbf%7Bz%7D)%5Cright)" style="display:inline-block;margin: 0;"></p>
+<p>end</p>
+</li>
+</ol>
+<p>return <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"></p>
+<p>We have introduced the motivation and basic theory of variational inference. In the following sections, we will continue with its applications with Variational Auto-encoder and how coordinate ascent variational inference (CAVI) is actually used in Gaussian Mixture Model.</p>
+<h3 id="to-be-continued">To be continued.</h3>
+<p>[1] <a href="http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf" target="_blank" rel="noopener">users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop - Pattern Recognition And Machine Learning - Springer  2006.pdf</a></p>
+<p>[2] <a href="https://arxiv.org/abs/1601.00670" target="_blank" rel="noopener">[1601.00670] Variational Inference: A Review for Statisticians (arxiv.org)</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/Monte-Carlo-Markov-Chain/" data-toggle="tooltip" data-placement="top" title="Monte Carlo Markov Chain">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                
+
+                <br>
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <br>                       
+                
+                <!-- require APlayer -->
+                
+
+                
+
+                
+
+                
+
+                
+
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#variational-inference"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Variational Inference</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-motivation"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">1. Motivation</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-variational-inference"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">2. Variational Inference</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#21-basic-theory"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text">2.1. Basic Theory</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#22-properties-of-variational-inference"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text">2.2. Properties of Variational Inference</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#23-mean-field-variational-inference"><span class="toc-nav-number">1.2.3.</span> <span class="toc-nav-text">2.3. Mean-field Variational Inference</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#24-coordinate-ascent-vi-algorithm-cavi"><span class="toc-nav-number">1.2.4.</span> <span class="toc-nav-text">2.4. Coordinate Ascent VI algorithm (CAVI)</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#to-be-continued"><span class="toc-nav-number">1.2.5.</span> <span class="toc-nav-text">To be continued.</span></a></li></ol></li></ol></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+            // console.log(window.navigator.userAgent,isChrome)
+                // if(isChrome) {
+                    // console.log(a.currentTarget.outerHTML);
+                    // console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                // }
+        })  
+</script>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/johntoro1608">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/JohnToro-CZAF">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://www.linkedin.com/in/phan-nhật-hoàng-8a3892191">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; John Phan 2022 
+                    <br>
+                    Created by <a href="https://github.com/JohnToro-CZAF">JohnPhan</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    from <a href="https://www.ntu.edu.sg/">Nanyang Technological University</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=JohnToro-CZAF&repo=JohnToro-CZAF.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<script src="/js/particles.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+<script src="/js/particles-js.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("www.johnphancazf.com/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-XXXXXXXX-X';
+    var _gaDomain = 'yoursite';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'xxx';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+    </script>
+<!-- Image to hack wechat -->
+<img src="www.johnphancazf.com/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='themes/huweihuang/source/js/math_jax.js' async></script>
+</body>
+
+</html>
