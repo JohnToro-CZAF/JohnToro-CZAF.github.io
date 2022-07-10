@@ -92,7 +92,7 @@
                         <h1>Variational Inference</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
-                            Posted by John Phan on
+                            Posted by Huy Phan on
                             2022-07-10
                         </span>
                     </div>
@@ -139,14 +139,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -278,18 +278,14 @@ for sampling from a <a href="https://en.wikipedia.org/wiki/Probability_distribu
 <p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%26%5Cint_%7Bx_%7B1%7D%7D%5E%7Bx_%7B2%7D%7D%20%5Ceta%28x%29%5Cleft(%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%7D-%5Cfrac%7Bd%7D%7Bd%20x%7D%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%5E%7B%5Cprime%7D%7D%5Cright)%20dx%3D0%20%5C%5C%20%26%5CRightarrow%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%7D-%5Cfrac%7Bd%7D%7Bd%20x%7D%20%5Cfrac%7B%5Cpartial%20%5Cmathcal%7BL%7D%7D%7B%5Cpartial%20f%5E%7B%5Cprime%7D%7D%3D0%20%5Cend%7Baligned%7D%0A"></p><p>Using this fact we can plug into equation (5) to solve for <img src="https://math.now.sh?inline=q_j%28z_j%29" style="display:inline-block;margin: 0;">. Indeed, we have</p>
 <p style><img src="https://math.now.sh?from=%5Cbegin%7Baligned%7D%26%5Cfrac%7B%5Cpartial%20%5Cleft%28E_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D%29%5Cright%5D-%20%5Clog%20q_j(z_j)%5Cright)q_j(z_j)%7D%7B%5Cpartial%20q_j(z_j)%7D%20-%20%5Cfrac%7Bd%200%7D%7Bdz_j%7D%20%3D%200%20%5C%5C%26%20%5CRightarrow%20E_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%20-%20%5Clog%20q_j(z_j)%2B1%3D0%20%5C%5C%26%20%5CRightarrow%20q_j(z_j)%20%5Cpropto%20%5Cexp%5C%7BE_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%5C%7D%20%20%5Cend%7Baligned%7D%0A"></p><p>In summary, we got final algorithm of coordinate ascent variational inference [2]</p>
 <ol>
-<li>
-<p>While the ELBO has not converged do</p>
-<pre><code>   for $j \in \{1, \dots, m\}$ do
-
-   Set $q_j(z_j) \propto \exp\{E_{-j}\left[ \log p(z_j, \mathbf{z}_{-j}, \mathbf{x})\right]\}$ 
-</code></pre>
-<p>end</p>
-<p>Compute <img src="https://math.now.sh?inline=ELBO%28q(%5Cmathbf%7Bz%7D%29)%20%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20KL%5Cleft(q(%5Cmathbf%7Bz%7D)%2Cp(%5Cmathbf%7Bz%7D)%5Cright)" style="display:inline-block;margin: 0;"></p>
-<p>end</p>
-</li>
+<li>While the ELBO has not converged do</li>
 </ol>
-<p>return <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"></p>
+<p>     for <img src="https://math.now.sh?inline=j%20%5Cin%20%5C%7B1%2C%20%5Cdots%2C%20m%5C%7D" style="display:inline-block;margin: 0;"> do<br>
+       Set <img src="https://math.now.sh?inline=q_j%28z_j%29%20%5Cpropto%20%5Cexp%5C%7BE_%7B-j%7D%5Cleft%5B%20%5Clog%20p(z_j%2C%20%5Cmathbf%7Bz%7D_%7B-j%7D%2C%20%5Cmathbf%7Bx%7D)%5Cright%5D%5C%7D" style="display:inline-block;margin: 0;"><br>
+     end<br>
+     Compute <img src="https://math.now.sh?inline=ELBO%28q(%5Cmathbf%7Bz%7D%29)%20%3D%20E_%7B%5Cmathbf%7Bz%7D%5Csim%20q(z)%7D%5Cleft%5B%5Clog%7Bp(%5Cmathbf%7Bx%7D%20%5Cmid%20%5Cmathbf%7Bz%7D)%7D%5Cright%5D%20-%20KL%5Cleft(q(%5Cmathbf%7Bz%7D)%2Cp(%5Cmathbf%7Bz%7D)%5Cright)" style="display:inline-block;margin: 0;"><br>
+   end<br>
+return <img src="https://math.now.sh?inline=q%28%5Cmathbf%7Bz%7D%29" style="display:inline-block;margin: 0;"></p>
 <p>We have introduced the motivation and basic theory of variational inference. In the following sections, we will continue with its applications with Variational Auto-encoder and how coordinate ascent variational inference (CAVI) is actually used in Gaussian Mixture Model.</p>
 <h3 id="to-be-continued">To be continued.</h3>
 <p>[1] <a href="http://users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop%20-%20Pattern%20Recognition%20And%20Machine%20Learning%20-%20Springer%20%202006.pdf" target="_blank" rel="noopener">users.isr.ist.utl.pt/~wurmd/Livros/school/Bishop - Pattern Recognition And Machine Learning - Springer  2006.pdf</a></p>
@@ -619,22 +615,6 @@ for sampling from a <a href="https://en.wikipedia.org/wiki/Probability_distribu
 <img src="www.johnphancazf.com/img/icon_wechat.png" width="0" height="0" />
 <!-- Migrate from head to bottom, no longer block render and still work -->
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
-<script src='themes/huweihuang/source/js/math_jax.js' async></script>
 </body>
 
 </html>
